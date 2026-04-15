@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Dlight Admin — Management Portal</title>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- BACKDROP -->
+<div class="sb-backdrop" id="sb-bd" onclick="closeSb()"></div>
+
+<!-- ═══ SIDEBAR ═══ -->
+<aside class="sidebar" id="sidebar">
+  <div class="sb-logo">
+    <div class="logo-gem">ض</div>
+    <div class="logo-txt">
+      <strong>Dlight Institute</strong>
+      <span>Online Quran School</span>
+      <div class="sb-admin-badge">⚙️ ADMIN</div>
+    </div>
+    <button class="sb-x" onclick="closeSb()">✕</button>
+  </div>
+
+  <div class="nav-label">Overview</div>
+  <a class="nav-link active" data-page="overview" onclick="go(this)"><span class="ni">🏠</span> Dashboard</a>
+  <a class="nav-link" data-page="analytics" onclick="go(this)"><span class="ni">📈</span> Analytics</a>
+
+  <div class="nav-label">Students</div>
+  <a class="nav-link" data-page="students" onclick="go(this)"><span class="ni">👨‍🎓</span> All Students <span class="nb">48</span></a>
+  <a class="nav-link" data-page="enroll" onclick="go(this)"><span class="ni">➕</span> Enrol Student</a>
+  <a class="nav-link" data-page="progress" onclick="go(this)"><span class="ni">📊</span> Progress Tracking</a>
+
+  <div class="nav-label">Academics</div>
+  <a class="nav-link" data-page="teachers" onclick="go(this)"><span class="ni">👩‍🏫</span> Teachers <span class="nb">8</span></a>
+  <a class="nav-link" data-page="curriculum" onclick="go(this)"><span class="ni">📚</span> Curriculum</a>
+  <a class="nav-link" data-page="assignments" onclick="go(this)"><span class="ni">📋</span> Assignments <span class="nb nb-red">5</span></a>
+  <a class="nav-link" data-page="schedule" onclick="go(this)"><span class="ni">🗓️</span> Schedule</a>
+
+  <div class="nav-label">Communication</div>
+  <a class="nav-link" data-page="messages" onclick="go(this)"><span class="ni">💬</span> Messages <span class="nb nb-red">12</span></a>
+  <a class="nav-link" data-page="announcements" onclick="go(this)"><span class="ni">📢</span> Announcements</a>
+
+  <div class="nav-label">System</div>
+  <a class="nav-link" data-page="reports" onclick="go(this)"><span class="ni">📄</span> Reports</a>
+  <a class="nav-link" data-page="settings" onclick="go(this)"><span class="ni">⚙️</span> Settings</a>
+
+  <div class="sb-foot">
+    <button class="sb-logout" onclick="doLogout()">🚪 Log Out</button>
+  </div>
+</aside>
+
+<!-- ═══ SHELL ═══ -->
+<div class="shell">
+
+  <!-- TOPBAR -->
+  <header class="topbar">
+    <button class="tb-ham" onclick="openSb()">☰</button>
+    <div class="tb-brand">
+      <div class="tb-brand-gem">ض</div>
+      <div class="tb-brand-name">Admin</div>
+    </div>
+    <div class="tb-titles">
+      <h1 id="pg-title">Dashboard</h1>
+      <p id="pg-sub">Welcome back, Admin</p>
+    </div>
+    <div class="tb-search">
+      <span style="color:var(--muted);font-size:13px;">🔍</span>
+      <input type="text" placeholder="Search students, teachers…" id="global-search" oninput="globalSearch(this.value)">
+    </div>
+    <div class="tb-btn">🔔<span class="ndot"></span></div>
+    <div class="tb-btn">📅</div>
+    <div class="admin-pill" onclick="toggleDd()">
+      <div class="a-av">SA</div>
+      <span class="a-name">Super Admin</span>
+      <span style="color:var(--muted);font-size:10px;margin-left:2px;">▾</span>
+    </div>
+  </header>
+
+  <!-- DROPDOWN -->
+  <div class="dd-ov" id="dd-ov" onclick="closeDd()"></div>
+  <div class="dd-wrap" id="dd">
+    <div class="dd-box">
+      <div class="dd-head"><strong>Super Admin</strong><span>admin@dlight.edu</span></div>
+      <div class="dd-item" onclick="go(null,'settings')">⚙️ Settings</div>
+      <div class="dd-item" onclick="go(null,'reports')">📄 Reports</div>
+      <div class="dd-item red" onclick="doLogout()">🚪 Log Out</div>
+    </div>
+  </div>
+
+  <!-- ═══ VIEW AREA ═══ -->
+  <div class="view-area" id="va">
+
+    <!-- ══════════ OVERVIEW ══════════ -->
+    <div class="page active" id="page-overview">
+      <div class="welcome-bar">
+        <div class="wb-av">SA</div>
+        <div class="wb-txt">
+          <h2 id="admin-greet">Good morning, Admin! 👋</h2>
+          <p>Here's what's happening at Dlight Institute today.</p>
+        </div>
+        <div class="wb-stats">
+          <div class="ws"><div class="ws-v">48</div><div class="ws-l">Students</div></div>
+          <div class="ws"><div class="ws-v">8</div><div class="ws-l">Teachers</div></div>
+          <div class="ws"><div class="ws-v">6</div><div class="ws-l">Subjects</div></div>
+        </div>
+      </div>
+
+      <!-- KPIs -->
+      <div class="grid4" style="margin-bottom:20px;">
+        <div class="kpi kpi-g">
+          <div class="kpi-top"><div class="kpi-ico ci-g">👨‍🎓</div><span class="kpi-trend kpi-up">▲ 4 new</span></div>
+          <div class="kpi-val">48</div><div class="kpi-lbl">Total Students</div>
+        </div>
+        <div class="kpi kpi-b">
+          <div class="kpi-top"><div class="kpi-ico ci-b">📖</div><span class="kpi-trend kpi-up">▲ 12%</span></div>
+          <div class="kpi-val">73%</div><div class="kpi-lbl">Avg Completion</div>
+        </div>
+        <div class="kpi kpi-o">
+          <div class="kpi-top"><div class="kpi-ico ci-o">📋</div><span class="kpi-trend kpi-dn">▼ 5 late</span></div>
+          <div class="kpi-val">38</div><div class="kpi-lbl">Pending Assignments</div>
+        </div>
+        <div class="kpi kpi-r">
+          <div class="kpi-top"><div class="kpi-ico ci-r">⚠️</div><span class="kpi-trend kpi-dn">Needs attention</span></div>
+          <div class="kpi-val">6</div><div class="kpi-lbl">At-Risk Students</div>
+        </div>
+      </div>
+
+      <div class="grid2" style="margin-bottom:20px;">
+        <!-- Enrolment Chart -->
+        <div class="card">
+          <div class="card-hd"><div class="c-ico ci-g">📈</div><div><div class="c-title">Monthly Enrolments</div><div class="c-sub">Last 6 months</div></div><div class="c-act" onclick="go(null,'analytics')">Analytics ›</div></div>
+          <div class="card-bd">
+            <div class="bar-chart" id="enrol-chart"></div>
+            <div style="display:flex;justify-content:space-between;margin-top:12px;padding:0 4px;">
+              <span style="font-size:12px;color:var(--muted);">Total this year: <strong style="color:var(--em);">48 students</strong></span>
+              <span style="font-size:12px;color:var(--muted);">vs last year: <strong style="color:var(--em);">+28%</strong></span>
+            </div>
+          </div>
+        </div>
+        <!-- Subject Completion -->
+        <div class="card">
+          <div class="card-hd"><div class="c-ico ci-b">📊</div><div><div class="c-title">Subject Completion</div><div class="c-sub">Average across all students</div></div></div>
+          <div class="card-bd">
+            <div class="subj-bar"><div class="sb-hd"><span class="sb-lbl">📖 Quran Hifz</span><span class="sb-pct">73%</span></div><div class="sb-bar"><div class="sb-fill fg" style="width:73%"></div></div></div>
+            <div class="subj-bar"><div class="sb-hd"><span class="sb-lbl">🎙️ Tajweed</span><span class="sb-pct">68%</span></div><div class="sb-bar"><div class="sb-fill fb" style="width:68%"></div></div></div>
+            <div class="subj-bar"><div class="sb-hd"><span class="sb-lbl">✍️ Arabiyyah</span><span class="sb-pct">55%</span></div><div class="sb-bar"><div class="sb-fill fo" style="width:55%"></div></div></div>
+            <div class="subj-bar"><div class="sb-hd"><span class="sb-lbl">📕 Tawheed/Fiqh</span><span class="sb-pct">81%</span></div><div class="sb-bar"><div class="sb-fill fg" style="width:81%"></div></div></div>
+            <div class="subj-bar"><div class="sb-hd"><span class="sb-lbl">📚 Hadith</span><span class="sb-pct">70%</span></div><div class="sb-bar"><div class="sb-fill fb" style="width:70%"></div></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid2">
+        <!-- Recent Activity -->
+        <div class="card">
+          <div class="card-hd"><div class="c-ico ci-o">🕐</div><div><div class="c-title">Recent Activity</div><div class="c-sub">Latest events</div></div></div>
+          <div class="card-bd" style="padding-top:8px;">
+            <div class="feed-item"><div class="feed-dot ci-g">✅</div><div class="feed-body"><strong>Ahmad Bilal completed Al-Mulk</strong><span>Quran Hifz · Sh. Abdullah Yusuf</span></div><div class="feed-time">5m ago</div></div>
+            <div class="feed-item"><div class="feed-dot ci-b">📝</div><div class="feed-body"><strong>New assignment submitted</strong><span>Fatima Hassan · Tajweed worksheet</span></div><div class="feed-time">18m ago</div></div>
+            <div class="feed-item"><div class="feed-dot ci-r">⚠️</div><div class="feed-body"><strong>Missed class: Omar Khalid</strong><span>Arabic Grammar · 3 absences</span></div><div class="feed-time">1h ago</div></div>
+            <div class="feed-item"><div class="feed-dot ci-g">👤</div><div class="feed-body"><strong>New student enrolled</strong><span>Yusuf Ibrahim · Rawdah Level</span></div><div class="feed-time">2h ago</div></div>
+            <div class="feed-item"><div class="feed-dot ci-o">📢</div><div class="feed-body"><strong>Announcement posted</strong><span>End-of-Term Assessment dates</span></div><div class="feed-time">3h ago</div></div>
+            <div class="feed-item"><div class="feed-dot ci-p">💬</div><div class="feed-body"><strong>12 unread messages</strong><span>From students awaiting reply</span></div><div class="feed-time">Today</div></div>
+          </div>
+        </div>
+        <!-- At-Risk Students -->
+        <div class="card">
+          <div class="card-hd"><div class="c-ico ci-r">⚠️</div><div><div class="c-title">At-Risk Students</div><div class="c-sub">Need immediate attention</div></div><div class="c-act" onclick="go(null,'students')">View All ›</div></div>
+          <div class="card-bd" style="padding-top:8px;">
+            <div class="row-item"><div class="t-av" style="background:#e07b2a;font-size:11px;">OK</div><div style="flex:1;min-width:0;"><div style="font-size:13px;font-weight:600;color:var(--ink);">Omar Khalid</div><div style="font-size:11.5px;color:var(--muted);">3 missed classes · 42% progress</div></div><span class="badge b-red">At Risk</span></div>
+            <div class="row-item"><div class="t-av" style="background:#6b4226;font-size:11px;">ZA</div><div style="flex:1;min-width:0;"><div style="font-size:13px;font-weight:600;color:var(--ink);">Zainab Ahmed</div><div style="font-size:11.5px;color:var(--muted);">Assignments overdue · 38% progress</div></div><span class="badge b-red">At Risk</span></div>
+            <div class="row-item"><div class="t-av" style="background:#555;font-size:11px;">MF</div><div style="flex:1;min-width:0;"><div style="font-size:13px;font-weight:600;color:var(--ink);">Muhammad Farooq</div><div style="font-size:11.5px;color:var(--muted);">No activity in 7 days</div></div><span class="badge b-gld">Inactive</span></div>
+            <div class="row-item"><div class="t-av" style="background:#9a3a3a;font-size:11px;">HA</div><div style="flex:1;min-width:0;"><div style="font-size:13px;font-weight:600;color:var(--ink);">Hana Al-Rashid</div><div style="font-size:11.5px;color:var(--muted);">Low test scores · needs support</div></div><span class="badge b-gld">Monitor</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════ ANALYTICS ══════════ -->
+    <div class="page" id="page-analytics">
+      <div class="page-hd"><div><h2>Analytics</h2><p>School-wide performance insights</p></div></div>
+      <div class="grid4" style="margin-bottom:20px;">
+        <div class="kpi kpi-g"><div class="kpi-top"><div class="kpi-ico ci-g">📖</div><span class="kpi-trend kpi-up">▲ 8%</span></div><div class="kpi-val">73%</div><div class="kpi-lbl">Avg Quran Progress</div></div>
+        <div class="kpi kpi-b"><div class="kpi-top"><div class="kpi-ico ci-b">⏱️</div><span class="kpi-trend kpi-up">▲ 15%</span></div><div class="kpi-val">38h</div><div class="kpi-lbl">Avg Study Time/mo</div></div>
+        <div class="kpi kpi-o"><div class="kpi-top"><div class="kpi-ico ci-o">✅</div><span class="kpi-trend kpi-dn">▼ 3%</span></div><div class="kpi-val">84%</div><div class="kpi-lbl">Assignment Rate</div></div>
+        <div class="kpi kpi-p"><div class="kpi-top"><div class="kpi-ico ci-p">🔥</div><span class="kpi-trend kpi-up">▲ 5</span></div><div class="kpi-val">18</div><div class="kpi-lbl">Avg Day Streak</div></div>
+      </div>
+      <div class="grid2" style="margin-bottom:20px;">
+        <div class="card"><div class="card-hd"><div class="c-ico ci-g">📈</div><div><div class="c-title">Enrolment Trend</div><div class="c-sub">New students per month</div></div></div><div class="card-bd"><div class="bar-chart" id="analytics-chart1"></div></div></div>
+        <div class="card"><div class="card-hd"><div class="c-ico ci-b">📊</div><div><div class="c-title">Completion Rate by Level</div><div class="c-sub">Rawdah, Ibtidaiy, Mutawassit</div></div></div><div class="card-bd">
+          <div class="subj-bar"><div class="sb-hd"><span class="sb-lbl">🌱 Rawdah (Ages 5–8)</span><span class="sb-pct">82%</span></div><div class="sb-bar"><div class="sb-fill fg" style="width:82%"></div></div></div>
+          <div class="subj-bar"><div class="sb-hd"><span class="sb-lbl">📗 Ibtidaiy (Ages 9–12)</span><span class="sb-pct">71%</span></div><div class="sb-bar"><div class="sb-fill fb" style="width:71%"></div></div></div>
+          <div class="subj-bar"><div class="sb-hd"><span class="sb-lbl">📘 Mutawassit (Ages 13–16)</span><span class="sb-pct">68%</span></div><div class="sb-bar"><div class="sb-fill fo" style="width:68%"></div></div></div>
+          <div class="subj-bar"><div class="sb-hd"><span class="sb-lbl">📙 Advanced (17+)</span><span class="sb-pct">75%</span></div><div class="sb-bar"><div class="sb-fill fg" style="width:75%"></div></div></div>
+        </div></div>
+      </div>
+      <div class="card"><div class="card-hd"><div class="c-ico ci-o">🏆</div><div><div class="c-title">Top Performing Students</div><div class="c-sub">Based on overall progress this term</div></div></div><div class="card-bd" style="padding:0;">
+        <div class="tbl-wrap"><table>
+          <thead><tr><th>#</th><th>Student</th><th>Level</th><th>Juz Progress</th><th>Streak</th><th>Score</th></tr></thead>
+          <tbody>
+            <tr><td style="font-weight:700;color:var(--gold);">🥇 1</td><td class="td-name">Ahmad Bilal</td><td><span class="badge b-sky">Ibtidaiy</span></td><td>14/30 Juz</td><td>🔥 22 days</td><td><span class="badge b-grn">95%</span></td></tr>
+            <tr><td style="font-weight:700;color:var(--muted);">🥈 2</td><td class="td-name">Fatima Hassan</td><td><span class="badge b-pur">Mutawassit</span></td><td>20/30 Juz</td><td>🔥 18 days</td><td><span class="badge b-grn">91%</span></td></tr>
+            <tr><td style="font-weight:700;color:var(--muted);">🥉 3</td><td class="td-name">Ibrahim Yusuf</td><td><span class="badge b-sky">Ibtidaiy</span></td><td>11/30 Juz</td><td>🔥 15 days</td><td><span class="badge b-grn">88%</span></td></tr>
+            <tr><td>4</td><td class="td-name">Aisha Rahman</td><td><span class="badge b-grn">Rawdah</span></td><td>6/30 Juz</td><td>🔥 12 days</td><td><span class="badge b-gld">82%</span></td></tr>
+            <tr><td>5</td><td class="td-name">Khalid Al-Amin</td><td><span class="badge b-pur">Mutawassit</span></td><td>22/30 Juz</td><td>🔥 9 days</td><td><span class="badge b-gld">79%</span></td></tr>
+          </tbody>
+        </table></div>
+      </div></div>
+    </div>
+
+    <!-- ══════════ STUDENTS ══════════ -->
+    <div class="page" id="page-students">
+      <div class="page-hd">
+        <div><h2>All Students</h2><p>48 enrolled students</p></div>
+        <button class="btn btn-primary" onclick="openModal('modal-add-student')">➕ Enrol Student</button>
+      </div>
+      <div class="filter-bar">
+        <div class="filter-inp"><span style="color:var(--muted);">🔍</span><input type="text" placeholder="Search by name or ID…" oninput="filterStudents(this.value)"></div>
+        <select class="filter-sel" onchange="filterStudents()"><option value="">All Levels</option><option>Rawdah</option><option>Ibtidaiy</option><option>Mutawassit</option><option>Advanced</option></select>
+        <select class="filter-sel"><option value="">All Status</option><option>Active</option><option>Inactive</option><option>At Risk</option></select>
+        <button class="btn btn-outline btn-sm">⬇ Export</button>
+      </div>
+      <div class="card"><div class="card-bd" style="padding:0;"><div class="tbl-wrap"><table id="students-table">
+        <thead><tr><th>Student</th><th>Level</th><th>Juz Progress</th><th>Avg Score</th><th>Status</th><th>Teacher</th><th>Actions</th></tr></thead>
+        <tbody id="students-tbody"></tbody>
+      </table></div></div></div>
+    </div>
+
+    <!-- ══════════ ENROL STUDENT ══════════ -->
+    <div class="page" id="page-enroll">
+      <div class="page-hd"><div><h2>Enrol New Student</h2><p>Add a student to the system</p></div></div>
+      <div class="grid2">
+        <div class="card"><div class="card-hd"><div class="c-ico ci-g">👤</div><div><div class="c-title">Personal Information</div></div></div>
+        <div class="card-bd">
+          <div class="form-grid">
+            <div class="form-row"><label>First Name *</label><input type="text" placeholder="Ahmad"></div>
+            <div class="form-row"><label>Last Name *</label><input type="text" placeholder="Bilal"></div>
+          </div>
+          <div class="form-grid">
+            <div class="form-row"><label>Date of Birth</label><input type="date"></div>
+            <div class="form-row"><label>Gender</label><select><option>Male</option><option>Female</option></select></div>
+          </div>
+          <div class="form-row"><label>Email Address</label><input type="email" placeholder="student@example.com"></div>
+          <div class="form-row"><label>Phone / WhatsApp</label><input type="tel" placeholder="+44 7700 000000"></div>
+          <div class="form-row"><label>Country / Timezone</label><select><option>United Kingdom (GMT)</option><option>United States (EST)</option><option>Nigeria (WAT)</option><option>Pakistan (PKT)</option><option>Malaysia (MYT)</option><option>Other</option></select></div>
+        </div></div>
+        <div>
+          <div class="card" style="margin-bottom:16px;"><div class="card-hd"><div class="c-ico ci-b">🎓</div><div><div class="c-title">Academic Details</div></div></div>
+          <div class="card-bd">
+            <div class="form-row"><label>Level *</label><select><option>Rawdah (Ages 5–8)</option><option>Ibtidaiy Class 1</option><option>Ibtidaiy Class 2</option><option>Ibtidaiy Class 3</option><option>Mutawassit</option><option>Advanced</option></select></div>
+            <div class="form-row"><label>Assign Teacher</label><select><option>Sh. Abdullah Yusuf</option><option>Ust. Fatimah Hassan</option><option>Sh. Muhammad Al-Amin</option><option>Sh. Ibrahim Musa</option></select></div>
+            <div class="form-row"><label>Starting Surah</label><select><option>Al-Fatihah (1)</option><option>Al-Baqarah (2)</option><option>Al-Kahf (18)</option><option>Juz Amma (78–114)</option></select></div>
+            <div class="form-row"><label>Enrolment Date</label><input type="date"></div>
+            <div class="form-row"><label>Notes</label><textarea placeholder="Any special needs, prior Quran knowledge, etc."></textarea></div>
+          </div></div>
+          <div class="card"><div class="card-hd"><div class="c-ico ci-o">👨‍👩‍👧</div><div><div class="c-title">Guardian Info</div></div></div>
+          <div class="card-bd">
+            <div class="form-row"><label>Guardian Name</label><input type="text" placeholder="Parent / Guardian full name"></div>
+            <div class="form-row"><label>Guardian Phone</label><input type="tel" placeholder="+44 7700 000000"></div>
+            <div class="form-row"><label>Relationship</label><select><option>Parent</option><option>Guardian</option><option>Sibling</option><option>Self</option></select></div>
+          </div></div>
+        </div>
+      </div>
+      <div style="display:flex;gap:10px;margin-top:16px;justify-content:flex-end;">
+        <button class="btn btn-outline" onclick="go(null,'students')">Cancel</button>
+        <button class="btn btn-primary" onclick="alert('Student enrolled! (connect to backend)');go(null,'students')">✓ Enrol Student</button>
+      </div>
+    </div>
+
+    <!-- ══════════ PROGRESS TRACKING ══════════ -->
+    <div class="page" id="page-progress">
+      <div class="page-hd"><div><h2>Progress Tracking</h2><p>Monitor all students' Quran & academic progress</p></div>
+        <div style="display:flex;gap:8px;"><button class="btn btn-outline btn-sm">⬇ Export Report</button><button class="btn btn-primary btn-sm" onclick="go(null,'students')">View Students</button></div>
+      </div>
+      <div class="grid4" style="margin-bottom:20px;">
+        <div class="kpi kpi-g"><div class="kpi-top"><div class="kpi-ico ci-g">📖</div><span class="kpi-trend kpi-up">73%</span></div><div class="kpi-val">14.2</div><div class="kpi-lbl">Avg Juz Completed</div></div>
+        <div class="kpi kpi-b"><div class="kpi-top"><div class="kpi-ico ci-b">⭐</div><span class="kpi-trend kpi-up">▲ 5%</span></div><div class="kpi-val">84%</div><div class="kpi-lbl">Avg Test Score</div></div>
+        <div class="kpi kpi-o"><div class="kpi-top"><div class="kpi-ico ci-o">🔥</div><span class="kpi-trend kpi-up">▲ 3</span></div><div class="kpi-val">18</div><div class="kpi-lbl">Avg Day Streak</div></div>
+        <div class="kpi kpi-r"><div class="kpi-top"><div class="kpi-ico ci-r">📉</div><span class="kpi-trend kpi-dn">6 students</span></div><div class="kpi-val">12%</div><div class="kpi-lbl">Below Target</div></div>
+      </div>
+      <div class="card"><div class="card-hd"><div class="c-ico ci-g">📊</div><div><div class="c-title">Student Progress Overview</div><div class="c-sub">Current Quran memorisation progress</div></div><div class="c-act">Filter ▾</div></div>
+      <div class="card-bd" style="padding:0;"><div class="tbl-wrap"><table>
+        <thead><tr><th>Student</th><th>Current Surah</th><th>Juz Done</th><th>Hifz %</th><th>Tajweed</th><th>Arabiyyah</th><th>Streak</th><th>Status</th></tr></thead>
+        <tbody id="progress-tbody"></tbody>
+      </table></div></div></div>
+    </div>
+
+    <!-- ══════════ TEACHERS ══════════ -->
+    <div class="page" id="page-teachers">
+      <div class="page-hd"><div><h2>Teachers</h2><p>8 active teachers</p></div>
+        <button class="btn btn-primary" onclick="openModal('modal-add-teacher')">➕ Add Teacher</button>
+      </div>
+      <div class="grid2" id="teachers-grid"></div>
+    </div>
+
+    <!-- ══════════ CURRICULUM ══════════ -->
+    <div class="page" id="page-curriculum">
+      <div class="page-hd"><div><h2>Curriculum</h2><p>Manage subjects and course content</p></div>
+        <button class="btn btn-primary">➕ Add Subject</button>
+      </div>
+      <div class="grid2" style="margin-bottom:16px;" id="curriculum-cards"></div>
+      <div class="card"><div class="card-hd"><div class="c-ico ci-b">📖</div><div><div class="c-title">Quran Syllabus by Level</div><div class="c-sub">What each level is expected to complete</div></div></div>
+      <div class="card-bd" style="padding:0;"><div class="tbl-wrap"><table>
+        <thead><tr><th>Level</th><th>Target Juz</th><th>Tajweed Topics</th><th>Arabic Level</th><th>Fiqh Topics</th></tr></thead>
+        <tbody>
+          <tr><td><span class="badge b-grn">Rawdah</span></td><td>Juz Amma (Juz 30)</td><td>Basic Makharij</td><td>Alphabet + words</td><td>Basic Ibadah</td></tr>
+          <tr><td><span class="badge b-sky">Ibtidaiy 1</span></td><td>Juz 29–30</td><td>Noon & Meem rules</td><td>Simple sentences</td><td>Pillars of Islam</td></tr>
+          <tr><td><span class="badge b-sky">Ibtidaiy 2</span></td><td>Juz 27–30</td><td>Madd rules</td><td>Verb patterns</td><td>Taharah & Salah</td></tr>
+          <tr><td><span class="badge b-sky">Ibtidaiy 3</span></td><td>Juz 25–30</td><td>Waqf & Ibtida</td><td>Nahw basics</td><td>Fasting & Zakat</td></tr>
+          <tr><td><span class="badge b-pur">Mutawassit</span></td><td>Juz 15–30</td><td>Full Hafs rules</td><td>Intermediate Nahw</td><td>Fiqh Muqarin</td></tr>
+          <tr><td><span class="badge b-gld">Advanced</span></td><td>Full Quran</td><td>Ijazah prep</td><td>Advanced Sarf</td><td>Advanced Fiqh</td></tr>
+        </tbody>
+      </table></div></div></div>
+    </div>
+
+    <!-- ══════════ ASSIGNMENTS ══════════ -->
+    <div class="page" id="page-assignments">
+      <div class="page-hd"><div><h2>Assignments</h2><p>Manage and track all student assignments</p></div>
+        <button class="btn btn-primary" onclick="openModal('modal-add-assignment')">➕ New Assignment</button>
+      </div>
+      <div class="filter-bar">
+        <div class="filter-inp"><span style="color:var(--muted);">🔍</span><input type="text" placeholder="Search assignments…"></div>
+        <select class="filter-sel"><option>All Subjects</option><option>Quran Hifz</option><option>Tajweed</option><option>Arabiyyah</option><option>Tawheed/Fiqh</option><option>Hadith</option></select>
+        <select class="filter-sel"><option>All Status</option><option>Pending</option><option>Submitted</option><option>Overdue</option><option>Graded</option></select>
+      </div>
+      <div class="card"><div class="card-bd" style="padding:0;"><div class="tbl-wrap"><table>
+        <thead><tr><th>Assignment</th><th>Subject</th><th>Assigned To</th><th>Due Date</th><th>Submitted</th><th>Status</th><th>Actions</th></tr></thead>
+        <tbody id="assignments-tbody"></tbody>
+      </table></div></div></div>
+    </div>
+
+    <!-- ══════════ SCHEDULE ══════════ -->
+    <div class="page" id="page-schedule">
+      <div class="page-hd"><div><h2>Class Schedule</h2><p>Weekly timetable for all classes</p></div>
+        <button class="btn btn-primary" onclick="openModal('modal-add-class')">➕ Add Class</button>
+      </div>
+      <div class="grid2" style="margin-bottom:16px;">
+        <div class="card"><div class="card-hd"><div class="c-ico ci-g">📅</div><div><div class="c-title">Today's Classes</div><div class="c-sub" id="sched-today-date">Monday</div></div></div>
+        <div class="card-bd" style="padding-top:8px;" id="todays-classes"></div></div>
+        <div class="card"><div class="card-hd"><div class="c-ico ci-o">📊</div><div><div class="c-title">Class Stats</div><div class="c-sub">This week</div></div></div>
+        <div class="card-bd">
+          <div class="row-item"><span style="font-size:13px;flex:1;">Total classes this week</span><strong style="color:var(--em);">18</strong></div>
+          <div class="row-item"><span style="font-size:13px;flex:1;">Avg attendance rate</span><strong style="color:var(--em);">94%</strong></div>
+          <div class="row-item"><span style="font-size:13px;flex:1;">Classes completed</span><strong style="color:var(--em);">7</strong></div>
+          <div class="row-item"><span style="font-size:13px;flex:1;">Upcoming today</span><strong style="color:var(--gold);">4</strong></div>
+          <div class="row-item"><span style="font-size:13px;flex:1;">Cancelled this week</span><strong style="color:var(--red);">1</strong></div>
+        </div></div>
+      </div>
+      <div class="card"><div class="card-hd"><div class="c-ico ci-b">🗓️</div><div><div class="c-title">Full Weekly Schedule</div></div></div>
+      <div class="card-bd" style="padding:0;"><div class="tbl-wrap"><table>
+        <thead><tr><th>Time</th><th>Monday</th><th>Tuesday</th><th>Wednesday</th><th>Thursday</th><th>Friday</th></tr></thead>
+        <tbody id="weekly-sched"></tbody>
+      </table></div></div></div>
+    </div>
+
+    <!-- ══════════ MESSAGES ══════════ -->
+    <div class="page" id="page-messages">
+      <div class="page-hd"><div><h2>Messages</h2><p>12 unread messages</p></div>
+        <button class="btn btn-primary">✉️ Compose</button>
+      </div>
+      <div class="grid2">
+        <div class="card"><div class="card-hd"><div class="c-ico ci-b">📥</div><div><div class="c-title">Inbox</div><div class="c-sub">12 unread</div></div></div>
+        <div class="card-bd" style="padding-top:8px;" id="messages-list"></div></div>
+        <div class="card"><div class="card-hd"><div class="c-ico ci-g">💬</div><div><div class="c-title">Quick Reply</div><div class="c-sub">Send message to student or teacher</div></div></div>
+        <div class="card-bd">
+          <div class="form-row"><label>To</label><select><option>Ahmad Bilal (Student)</option><option>Fatima Hassan (Student)</option><option>Sh. Abdullah Yusuf (Teacher)</option><option>All Students</option><option>All Teachers</option></select></div>
+          <div class="form-row"><label>Subject</label><input type="text" placeholder="Message subject"></div>
+          <div class="form-row"><label>Message</label><textarea placeholder="Type your message here…" style="min-height:120px;"></textarea></div>
+          <div style="display:flex;gap:8px;justify-content:flex-end;">
+            <button class="btn btn-outline btn-sm">Save Draft</button>
+            <button class="btn btn-primary btn-sm">📤 Send</button>
+          </div>
+        </div></div>
+      </div>
+    </div>
+
+    <!-- ══════════ ANNOUNCEMENTS ══════════ -->
+    <div class="page" id="page-announcements">
+      <div class="page-hd"><div><h2>Announcements</h2><p>Broadcast messages to students & teachers</p></div>
+        <button class="btn btn-primary" onclick="openModal('modal-add-ann')">📢 New Announcement</button>
+      </div>
+      <div class="grid2" style="margin-bottom:0;">
+        <div>
+          <div class="card" style="margin-bottom:16px;"><div class="card-hd"><div class="c-ico ci-r">📢</div><div><div class="c-title">Active Announcements</div></div></div>
+          <div class="card-bd" style="padding-top:8px;" id="ann-list"></div></div>
+        </div>
+        <div class="card"><div class="card-hd"><div class="c-ico ci-b">📝</div><div><div class="c-title">New Announcement</div></div></div>
+        <div class="card-bd">
+          <div class="form-row"><label>Title *</label><input type="text" placeholder="Announcement title"></div>
+          <div class="form-row"><label>Message *</label><textarea placeholder="Write your announcement…" style="min-height:100px;"></textarea></div>
+          <div class="form-row"><label>Send To</label><select><option>All Students & Teachers</option><option>All Students Only</option><option>All Teachers Only</option><option>Specific Level</option></select></div>
+          <div class="form-grid">
+            <div class="form-row"><label>Priority</label><select><option>Normal</option><option>Important</option><option>Urgent</option></select></div>
+            <div class="form-row"><label>Expires</label><input type="date"></div>
+          </div>
+          <div style="display:flex;gap:8px;justify-content:flex-end;">
+            <button class="btn btn-outline btn-sm">Preview</button>
+            <button class="btn btn-primary btn-sm">📢 Publish</button>
+          </div>
+        </div></div>
+      </div>
+    </div>
+
+    <!-- ══════════ REPORTS ══════════ -->
+    <div class="page" id="page-reports">
+      <div class="page-hd"><div><h2>Reports</h2><p>Generate and download school reports</p></div></div>
+      <div class="grid3" style="margin-bottom:20px;">
+        <div class="card" style="cursor:pointer;" onclick="alert('Generating report…')"><div class="card-bd" style="text-align:center;padding:22px 16px;">
+          <div style="font-size:32px;margin-bottom:10px;">📊</div>
+          <div style="font-size:14px;font-weight:700;color:var(--ink);margin-bottom:5px;">Monthly Progress</div>
+          <div style="font-size:12px;color:var(--muted);margin-bottom:14px;">All students' April progress</div>
+          <button class="btn btn-primary btn-sm" style="width:100%;">⬇ Generate PDF</button>
+        </div></div>
+        <div class="card" style="cursor:pointer;"><div class="card-bd" style="text-align:center;padding:22px 16px;">
+          <div style="font-size:32px;margin-bottom:10px;">👨‍🎓</div>
+          <div style="font-size:14px;font-weight:700;color:var(--ink);margin-bottom:5px;">Student Report Cards</div>
+          <div style="font-size:12px;color:var(--muted);margin-bottom:14px;">Individual term results</div>
+          <button class="btn btn-primary btn-sm" style="width:100%;">⬇ Generate PDF</button>
+        </div></div>
+        <div class="card" style="cursor:pointer;"><div class="card-bd" style="text-align:center;padding:22px 16px;">
+          <div style="font-size:32px;margin-bottom:10px;">📋</div>
+          <div style="font-size:14px;font-weight:700;color:var(--ink);margin-bottom:5px;">Attendance Report</div>
+          <div style="font-size:12px;color:var(--muted);margin-bottom:14px;">Class attendance summary</div>
+          <button class="btn btn-primary btn-sm" style="width:100%;">⬇ Generate PDF</button>
+        </div></div>
+        <div class="card" style="cursor:pointer;"><div class="card-bd" style="text-align:center;padding:22px 16px;">
+          <div style="font-size:32px;margin-bottom:10px;">💰</div>
+          <div style="font-size:14px;font-weight:700;color:var(--ink);margin-bottom:5px;">Fee & Billing Report</div>
+          <div style="font-size:12px;color:var(--muted);margin-bottom:14px;">Payment status overview</div>
+          <button class="btn btn-primary btn-sm" style="width:100%;">⬇ Generate PDF</button>
+        </div></div>
+        <div class="card" style="cursor:pointer;"><div class="card-bd" style="text-align:center;padding:22px 16px;">
+          <div style="font-size:32px;margin-bottom:10px;">📈</div>
+          <div style="font-size:14px;font-weight:700;color:var(--ink);margin-bottom:5px;">Performance Analytics</div>
+          <div style="font-size:12px;color:var(--muted);margin-bottom:14px;">School-wide statistics</div>
+          <button class="btn btn-primary btn-sm" style="width:100%;">⬇ Export CSV</button>
+        </div></div>
+        <div class="card" style="cursor:pointer;"><div class="card-bd" style="text-align:center;padding:22px 16px;">
+          <div style="font-size:32px;margin-bottom:10px;">👩‍🏫</div>
+          <div style="font-size:14px;font-weight:700;color:var(--ink);margin-bottom:5px;">Teacher Workload</div>
+          <div style="font-size:12px;color:var(--muted);margin-bottom:14px;">Hours and student loads</div>
+          <button class="btn btn-primary btn-sm" style="width:100%;">⬇ Generate PDF</button>
+        </div></div>
+      </div>
+    </div>
+
+    <!-- ══════════ SETTINGS ══════════ -->
+    <div class="page" id="page-settings">
+      <div class="page-hd"><div><h2>Settings</h2><p>School configuration & admin preferences</p></div></div>
+      <div class="grid2">
+        <div>
+          <div class="card" style="margin-bottom:16px;"><div class="card-hd"><div class="c-ico ci-g">🏫</div><div><div class="c-title">School Information</div></div></div>
+          <div class="card-bd">
+            <div class="form-row"><label>School Name</label><input type="text" value="Dlight Online Quran Institute"></div>
+            <div class="form-row"><label>Admin Email</label><input type="email" value="admin@dlight.edu"></div>
+            <div class="form-row"><label>Contact Phone</label><input type="tel" value="+44 7700 000000"></div>
+            <div class="form-row"><label>Academic Year</label><select><option>2024–2025</option><option>2025–2026</option></select></div>
+            <div class="form-row"><label>Current Term</label><select><option>Term 2 (Apr–Jul)</option><option>Term 3 (Aug–Nov)</option></select></div>
+            <button class="btn btn-primary btn-sm">Save Changes</button>
+          </div></div>
+          <div class="card"><div class="card-hd"><div class="c-ico ci-b">🔔</div><div><div class="c-title">Notifications</div></div></div>
+          <div class="card-bd">
+            <div class="row-item"><span style="flex:1;font-size:13px;">Email notifications for new enrolments</span><div class="stoggle on" onclick="this.classList.toggle('on')"></div></div>
+            <div class="row-item"><span style="flex:1;font-size:13px;">Alert when student misses 3+ classes</span><div class="stoggle on" onclick="this.classList.toggle('on')"></div></div>
+            <div class="row-item"><span style="flex:1;font-size:13px;">Weekly summary email</span><div class="stoggle on" onclick="this.classList.toggle('on')"></div></div>
+            <div class="row-item"><span style="flex:1;font-size:13px;">Assignment overdue alerts</span><div class="stoggle" onclick="this.classList.toggle('on')"></div></div>
+          </div></div>
+        </div>
+        <div>
+          <div class="card" style="margin-bottom:16px;"><div class="card-hd"><div class="c-ico ci-o">🔐</div><div><div class="c-title">Security</div></div></div>
+          <div class="card-bd">
+            <div class="form-row"><label>Change Admin Password</label><input type="password" placeholder="New password"></div>
+            <div class="form-row"><label>Confirm Password</label><input type="password" placeholder="Confirm new password"></div>
+            <div class="row-item"><span style="flex:1;font-size:13px;">Two-factor authentication</span><div class="stoggle" onclick="this.classList.toggle('on')"></div></div>
+            <button class="btn btn-primary btn-sm" style="margin-top:8px;">Update Password</button>
+          </div></div>
+          <div class="card"><div class="card-hd"><div class="c-ico ci-r">🗑️</div><div><div class="c-title">Danger Zone</div></div></div>
+          <div class="card-bd">
+            <div style="font-size:12.5px;color:var(--muted);margin-bottom:14px;line-height:1.6;">These actions are irreversible. Please be certain before proceeding.</div>
+            <button class="btn btn-danger btn-sm" style="width:100%;margin-bottom:8px;">Clear All Student Data (Test)</button>
+            <button class="btn btn-danger btn-sm" style="width:100%;">Reset Academic Year</button>
+          </div></div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /view-area -->
+</div><!-- /shell -->
+
+<!-- ═══ BOTTOM NAV ═══ -->
+<nav class="bottom-nav">
+  <div class="bn-inner">
+    <button class="bn-item active" data-page="overview" onclick="go(this)"><span class="bico">🏠</span>Home</button>
+    <button class="bn-item" data-page="students" onclick="go(this)"><span class="bico">👨‍🎓</span>Students</button>
+    <button class="bn-item" data-page="progress" onclick="go(this)"><span class="bico">📊</span>Progress</button>
+    <button class="bn-item" data-page="messages" onclick="go(this)"><span class="bico">💬</span>Messages</button>
+    <button class="bn-item" data-page="settings" onclick="go(this)"><span class="bico">⚙️</span>More</button>
+  </div>
+</nav>
+
+<!-- ═══ MODALS ═══ -->
+
+<!-- Add Student -->
+<div class="modal-bg" id="modal-add-student">
+  <div class="modal">
+    <div class="modal-hd"><div class="c-ico ci-g">👤</div><h3>Quick Enrol Student</h3><button class="modal-close" onclick="closeModal('modal-add-student')">✕</button></div>
+    <div class="modal-body">
+      <div class="form-grid"><div class="form-row"><label>First Name *</label><input type="text" placeholder="First name"></div><div class="form-row"><label>Last Name *</label><input type="text" placeholder="Last name"></div></div>
+      <div class="form-row"><label>Email</label><input type="email" placeholder="student@example.com"></div>
+      <div class="form-grid"><div class="form-row"><label>Level</label><select><option>Rawdah</option><option>Ibtidaiy</option><option>Mutawassit</option><option>Advanced</option></select></div><div class="form-row"><label>Assign Teacher</label><select><option>Sh. Abdullah Yusuf</option><option>Ust. Fatimah Hassan</option><option>Sh. Muhammad Al-Amin</option><option>Sh. Ibrahim Musa</option></select></div></div>
+    </div>
+    <div class="modal-foot"><button class="btn btn-outline" onclick="closeModal('modal-add-student')">Cancel</button><button class="btn btn-primary" onclick="closeModal('modal-add-student');alert('Student enrolled!')">✓ Enrol</button></div>
+  </div>
+</div>
+
+<!-- Add Teacher -->
+<div class="modal-bg" id="modal-add-teacher">
+  <div class="modal">
+    <div class="modal-hd"><div class="c-ico ci-b">👩‍🏫</div><h3>Add Teacher</h3><button class="modal-close" onclick="closeModal('modal-add-teacher')">✕</button></div>
+    <div class="modal-body">
+      <div class="form-grid"><div class="form-row"><label>Full Name *</label><input type="text" placeholder="Sh. / Ust. Full Name"></div><div class="form-row"><label>Title</label><select><option>Sheikh</option><option>Ustaz/Ustaza</option><option>Dr.</option><option>Hafiz/Hafiza</option></select></div></div>
+      <div class="form-row"><label>Email *</label><input type="email" placeholder="teacher@dlight.edu"></div>
+      <div class="form-row"><label>Subjects (comma separated)</label><input type="text" placeholder="Quran Hifz, Tajweed, Arabiyyah"></div>
+      <div class="form-row"><label>Qualification</label><input type="text" placeholder="e.g. Ijazah in Hafs, BA Islamic Studies"></div>
+    </div>
+    <div class="modal-foot"><button class="btn btn-outline" onclick="closeModal('modal-add-teacher')">Cancel</button><button class="btn btn-primary" onclick="closeModal('modal-add-teacher');alert('Teacher added!')">✓ Add Teacher</button></div>
+  </div>
+</div>
+
+<!-- Add Assignment -->
+<div class="modal-bg" id="modal-add-assignment">
+  <div class="modal">
+    <div class="modal-hd"><div class="c-ico ci-o">📋</div><h3>New Assignment</h3><button class="modal-close" onclick="closeModal('modal-add-assignment')">✕</button></div>
+    <div class="modal-body">
+      <div class="form-row"><label>Title *</label><input type="text" placeholder="Assignment title"></div>
+      <div class="form-grid"><div class="form-row"><label>Subject</label><select><option>Quran Hifz</option><option>Tajweed</option><option>Arabiyyah</option><option>Tawheed/Fiqh</option><option>Hadith</option></select></div><div class="form-row"><label>Due Date</label><input type="date"></div></div>
+      <div class="form-row"><label>Assign To</label><select><option>All Students</option><option>Ibtidaiy Level</option><option>Mutawassit Level</option><option>Specific Student</option></select></div>
+      <div class="form-row"><label>Description</label><textarea placeholder="Describe the assignment task…"></textarea></div>
+    </div>
+    <div class="modal-foot"><button class="btn btn-outline" onclick="closeModal('modal-add-assignment')">Cancel</button><button class="btn btn-primary" onclick="closeModal('modal-add-assignment');alert('Assignment created!')">✓ Create</button></div>
+  </div>
+</div>
+
+<!-- Add Announcement -->
+<div class="modal-bg" id="modal-add-ann">
+  <div class="modal">
+    <div class="modal-hd"><div class="c-ico ci-r">📢</div><h3>New Announcement</h3><button class="modal-close" onclick="closeModal('modal-add-ann')">✕</button></div>
+    <div class="modal-body">
+      <div class="form-row"><label>Title *</label><input type="text" placeholder="Announcement title"></div>
+      <div class="form-row"><label>Message *</label><textarea placeholder="Write your announcement here…"></textarea></div>
+      <div class="form-grid"><div class="form-row"><label>Send To</label><select><option>Everyone</option><option>Students Only</option><option>Teachers Only</option></select></div><div class="form-row"><label>Priority</label><select><option>Normal</option><option>Important</option><option>Urgent</option></select></div></div>
+    </div>
+    <div class="modal-foot"><button class="btn btn-outline" onclick="closeModal('modal-add-ann')">Cancel</button><button class="btn btn-primary" onclick="closeModal('modal-add-ann');alert('Announcement published!')">📢 Publish</button></div>
+  </div>
+</div>
+
+<!-- Add Class -->
+<div class="modal-bg" id="modal-add-class">
+  <div class="modal">
+    <div class="modal-hd"><div class="c-ico ci-b">🗓️</div><h3>Add Class Session</h3><button class="modal-close" onclick="closeModal('modal-add-class')">✕</button></div>
+    <div class="modal-body">
+      <div class="form-row"><label>Class Name *</label><input type="text" placeholder="e.g. Quran Hifz — Ibtidaiy 2"></div>
+      <div class="form-grid"><div class="form-row"><label>Teacher</label><select><option>Sh. Abdullah Yusuf</option><option>Ust. Fatimah Hassan</option><option>Sh. Muhammad Al-Amin</option><option>Sh. Ibrahim Musa</option></select></div><div class="form-row"><label>Day</label><select><option>Monday</option><option>Tuesday</option><option>Wednesday</option><option>Thursday</option><option>Friday</option></select></div></div>
+      <div class="form-grid"><div class="form-row"><label>Start Time</label><input type="time" value="08:00"></div><div class="form-row"><label>End Time</label><input type="time" value="09:00"></div></div>
+      <div class="form-row"><label>Platform / Link</label><input type="text" placeholder="Zoom / Google Meet link"></div>
+    </div>
+    <div class="modal-foot"><button class="btn btn-outline" onclick="closeModal('modal-add-class')">Cancel</button><button class="btn btn-primary" onclick="closeModal('modal-add-class');alert('Class added!')">✓ Add Class</button></div>
+  </div>
+</div>
+
+<!-- View Student Profile Modal -->
+<div class="modal-bg" id="modal-student-profile">
+  <div class="modal" style="max-width:600px;">
+    <div class="modal-hd"><div class="c-ico ci-g">👤</div><h3 id="sp-modal-name">Student Profile</h3><button class="modal-close" onclick="closeModal('modal-student-profile')">✕</button></div>
+    <div class="modal-body" id="sp-modal-body"></div>
+    <div class="modal-foot"><button class="btn btn-outline" onclick="closeModal('modal-student-profile')">Close</button><button class="btn btn-primary">✉️ Message Student</button></div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Dlight — Teacher Portal</title>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="sb-backdrop" id="sb-bd" onclick="closeSb()"></div>
+
+<!-- ═══ SIDEBAR ═══ -->
+
+<aside class="sidebar" id="sidebar">
+  <div class="sb-logo">
+    <div class="logo-gem">ض</div>
+    <div class="logo-txt">
+      <strong>Dlight Institute</strong>
+      <span>Online Quran School</span>
+      <div class="sb-teacher-badge">👩‍🏫 TEACHER</div>
+    </div>
+    <button class="sb-x" onclick="closeSb()">✕</button>
+  </div>
+
+  <div class="nav-label">Overview</div>
+  <a class="nav-link active" data-page="dashboard" onclick="go(this)"><span class="ni">🏠</span> Dashboard</a>
+  <a class="nav-link" data-page="myclasses" onclick="go(this)"><span class="ni">🕌</span> My Classes <span class="nb nb-sky" id="live-nb">1 Live</span></a>
+
+  <div class="nav-label">My Students</div>
+  <a class="nav-link" data-page="students" onclick="go(this)"><span class="ni">👨‍🎓</span> All Students <span class="nb">14</span></a>
+  <a class="nav-link" data-page="progress" onclick="go(this)"><span class="ni">📊</span> Progress Tracking</a>
+  <a class="nav-link" data-page="attendance" onclick="go(this)"><span class="ni">📅</span> Attendance</a>
+
+  <div class="nav-label">Teaching</div>
+  <a class="nav-link" data-page="assignments" onclick="go(this)"><span class="ni">📋</span> Assignments <span class="nb nb-red">3</span></a>
+  <a class="nav-link" data-page="gradebook" onclick="go(this)"><span class="ni">⭐</span> Grade Book</a>
+  <a class="nav-link" data-page="notes" onclick="go(this)"><span class="ni">📝</span> Lesson Notes</a>
+  <a class="nav-link" data-page="resources" onclick="go(this)"><span class="ni">📚</span> Resources</a>
+
+  <div class="nav-label">Communication</div>
+  <a class="nav-link" data-page="messages" onclick="go(this)"><span class="ni">💬</span> Messages <span class="nb nb-red">7</span></a>
+  <a class="nav-link" data-page="announcements" onclick="go(this)"><span class="ni">📢</span> Announcements</a>
+
+  <div class="nav-label">Account</div>
+  <a class="nav-link" data-page="profile" onclick="go(this)"><span class="ni">👤</span> My Profile</a>
+  <a class="nav-link" data-page="settings" onclick="go(this)"><span class="ni">⚙️</span> Settings</a>
+
+  <div class="sb-foot">
+    <button class="sb-logout" onclick="doLogout()">🚪 Log Out</button>
+  </div>
+</aside>
+
+<!-- ═══ SHELL ═══ -->
+
+<div class="shell">
+  <header class="topbar">
+    <button class="tb-ham" onclick="openSb()">☰</button>
+    <div class="tb-brand">
+      <div class="tb-brand-gem">ض</div>
+      <div class="tb-brand-name">Teacher</div>
+    </div>
+    <div class="tb-titles">
+      <h1 id="pg-title">Dashboard</h1>
+      <p id="pg-sub">Teacher Portal</p>
+    </div>
+    <div class="tb-search">
+      <span style="color:var(--muted);font-size:13px;">🔍</span>
+      <input type="text" placeholder="Search students…">
+    </div>
+    <div class="tb-btn">🔔<span class="ndot"></span></div>
+    <div class="tb-btn">📅</div>
+    <div class="teacher-pill" onclick="toggleDd()">
+      <div class="t-av">AY</div>
+      <span class="t-name">Sh. Abdullah</span>
+      <span style="color:var(--muted);font-size:10px;margin-left:2px;">▾</span>
+    </div>
+  </header>
+
+  <div class="dd-ov" id="dd-ov" onclick="closeDd()"></div>
+  <div class="dd-wrap" id="dd">
+    <div class="dd-box">
+      <div class="dd-head"><strong>Sh. Abdullah Yusuf</strong><span>a.yusuf@dlight.edu</span></div>
+      <div class="dd-item" onclick="go(null,'profile')">👤 My Profile</div>
+      <div class="dd-item" onclick="go(null,'settings')">⚙️ Settings</div>
+      <div class="dd-item red" onclick="doLogout()">🚪 Log Out</div>
+    </div>
+  </div>
+
+  <!-- ═══ VIEW AREA ═══ -->
+
+  <div class="view-area" id="va">
+
+<!-- ════ DASHBOARD ════ -->
+<div class="page active" id="page-dashboard">
+  <div class="welcome-bar">
+    <div class="wb-av">AY</div>
+    <div class="wb-txt">
+      <h2 id="teach-greet">As-Salāmu ʿAlaykum, Sh. Abdullah! 👋</h2>
+      <p>Quran Hifz & Tajweed Teacher · Dlight Institute</p>
+    </div>
+    <div class="wb-stats">
+      <div class="ws"><div class="ws-v">14</div><div class="ws-l">Students</div></div>
+      <div class="ws"><div class="ws-v">5</div><div class="ws-l">Today's Classes</div></div>
+      <div class="ws"><div class="ws-v">3</div><div class="ws-l">Pending</div></div>
+    </div>
+  </div>
+
+  <!-- KPIs -->
+  <div class="grid4" style="margin-bottom:20px;">
+    <div class="kpi"><div class="kpi-top"><div class="kpi-ico ci-g">👨‍🎓</div><span class="kpi-trend kpi-up">2 new</span></div><div class="kpi-val">14</div><div class="kpi-lbl">My Students</div></div>
+    <div class="kpi"><div class="kpi-top"><div class="kpi-ico ci-b">📖</div><span class="kpi-trend kpi-up">▲ 5%</span></div><div class="kpi-val">74%</div><div class="kpi-lbl">Avg Progress</div></div>
+    <div class="kpi"><div class="kpi-top"><div class="kpi-ico ci-o">📋</div><span class="kpi-trend kpi-dn">3 pending</span></div><div class="kpi-val">8</div><div class="kpi-lbl">Assignments Active</div></div>
+    <div class="kpi"><div class="kpi-top"><div class="kpi-ico ci-r">⚠️</div><span class="kpi-trend kpi-dn">Monitor</span></div><div class="kpi-val">2</div><div class="kpi-lbl">At-Risk Students</div></div>
+  </div>
+
+  <div class="grid2">
+    <!-- Next class countdown + upcoming -->
+    <div>
+      <div id="dash-countdown-wrap"></div>
+      <div class="card">
+        <div class="card-hd"><div class="c-ico ci-b">🗓️</div><div><div class="c-title">Upcoming Classes</div><div class="c-sub">Today's remaining sessions</div></div><div class="c-act" onclick="go(null,'myclasses')">All ›</div></div>
+        <div class="card-bd" style="padding-top:8px;" id="dash-upcoming"></div>
+      </div>
+    </div>
+    <!-- Recent student activity -->
+    <div>
+      <div class="card" style="margin-bottom:16px;">
+        <div class="card-hd"><div class="c-ico ci-o">🕐</div><div><div class="c-title">Student Activity</div><div class="c-sub">Latest updates</div></div></div>
+        <div class="card-bd" style="padding-top:6px;" id="dash-activity"></div>
+      </div>
+      <div class="card">
+        <div class="card-hd"><div class="c-ico ci-r">⚠️</div><div><div class="c-title">Needs Attention</div><div class="c-sub">Act now</div></div><div class="c-act" onclick="go(null,'students')">View ›</div></div>
+        <div class="card-bd" style="padding-top:8px;" id="dash-atrisk"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════ MY CLASSES ════ -->
+<div class="page" id="page-myclasses">
+  <div class="page-hd"><div><h2>My Classes</h2><p>All your scheduled sessions</p></div>
+    <button class="btn btn-primary" onclick="openM('modal-add-class')">➕ Request New Class</button>
+  </div>
+
+  <!-- Live countdown hero -->
+  <div id="classes-countdown-wrap" style="margin-bottom:16px;"></div>
+
+  <!-- Weekly schedule -->
+  <div class="card" style="margin-bottom:16px;">
+    <div class="card-hd"><div class="c-ico ci-b">📅</div><div><div class="c-title">Weekly Timetable</div><div class="c-sub" id="week-label">Week of April 14, 2025</div></div></div>
+    <div class="card-bd" style="padding:0;"><div class="tbl-wrap"><table>
+      <thead><tr><th>Time</th><th>Monday</th><th>Tuesday</th><th>Wednesday</th><th>Thursday</th><th>Friday</th></tr></thead>
+      <tbody id="weekly-tbl"></tbody>
+    </table></div></div>
+  </div>
+
+  <!-- All classes list -->
+  <h2 class="section-title" style="font-size:15px;font-weight:700;color:var(--ink);margin-bottom:12px;">All Class Sessions</h2>
+  <div id="all-classes-list"></div>
+</div>
+
+<!-- ════ STUDENTS ════ -->
+<div class="page" id="page-students">
+  <div class="page-hd"><div><h2>My Students</h2><p>14 students assigned to you</p></div>
+    <button class="btn btn-primary" onclick="openM('modal-add-note')">📝 Add Group Note</button>
+  </div>
+  <div class="filter-bar">
+    <div class="filter-inp"><span style="color:var(--muted);">🔍</span><input type="text" placeholder="Search students…" oninput="filterStu(this.value)"></div>
+    <select class="filter-sel" onchange="filterStu()"><option value="">All Status</option><option>Active</option><option>At Risk</option><option>Inactive</option></select>
+    <select class="filter-sel"><option value="">All Levels</option><option>Rawdah</option><option>Ibtidaiy</option><option>Mutawassit</option></select>
+  </div>
+  <div class="card"><div class="card-bd" style="padding:0;"><div class="tbl-wrap"><table>
+    <thead><tr><th>Student</th><th>Level</th><th>Juz Progress</th><th>Hifz %</th><th>Tajweed</th><th>Streak</th><th>Status</th><th>Actions</th></tr></thead>
+    <tbody id="stu-tbody"></tbody>
+  </table></div></div></div>
+</div>
+
+<!-- ════ PROGRESS TRACKING ════ -->
+<div class="page" id="page-progress">
+  <div class="page-hd"><div><h2>Progress Tracking</h2><p>Monitor each student's Quran journey</p></div>
+    <button class="btn btn-outline btn-sm">⬇ Export</button>
+  </div>
+  <div class="grid4" style="margin-bottom:20px;">
+    <div class="kpi"><div class="kpi-top"><div class="kpi-ico ci-g">📖</div><span class="kpi-trend kpi-up">73%</span></div><div class="kpi-val">10.8</div><div class="kpi-lbl">Avg Juz Completed</div></div>
+    <div class="kpi"><div class="kpi-top"><div class="kpi-ico ci-b">⭐</div><span class="kpi-trend kpi-up">▲ 4%</span></div><div class="kpi-val">81%</div><div class="kpi-lbl">Avg Test Score</div></div>
+    <div class="kpi"><div class="kpi-top"><div class="kpi-ico ci-o">🔥</div><span class="kpi-trend kpi-up">▲ 2</span></div><div class="kpi-val">16</div><div class="kpi-lbl">Avg Day Streak</div></div>
+    <div class="kpi"><div class="kpi-top"><div class="kpi-ico ci-r">📉</div><span class="kpi-trend kpi-dn">2 students</span></div><div class="kpi-val">14%</div><div class="kpi-lbl">Below Target</div></div>
+  </div>
+  <div class="card" style="margin-bottom:16px;">
+    <div class="card-hd"><div class="c-ico ci-g">📊</div><div><div class="c-title">Student Progress Detail</div></div><div class="c-act">Filter ▾</div></div>
+    <div class="card-bd" style="padding:0;"><div class="tbl-wrap"><table>
+      <thead><tr><th>Student</th><th>Surah</th><th>Juz Done</th><th>Hifz%</th><th>Tajweed%</th><th>Arabic%</th><th>🔥 Streak</th><th>Status</th><th>Action</th></tr></thead>
+      <tbody id="prog-tbody"></tbody>
+    </table></div></div>
+  </div>
+  <!-- class averages chart -->
+  <div class="card"><div class="card-hd"><div class="c-ico ci-b">📊</div><div><div class="c-title">Class Averages by Subject</div></div></div>
+  <div class="card-bd">
+    <div class="subj-bar"><div class="sb-hd"><span class="sb-lbl">📖 Quran Hifz</span><span class="sb-pct">74%</span></div><div class="sb-bar"><div class="sb-fill fg" style="width:74%"></div></div></div>
+    <div class="subj-bar"><div class="sb-hd"><span class="sb-lbl">🎙️ Tajweed</span><span class="sb-pct">70%</span></div><div class="sb-bar"><div class="sb-fill fb" style="width:70%"></div></div></div>
+    <div class="subj-bar"><div class="sb-hd"><span class="sb-lbl">🔥 Attendance</span><span class="sb-pct">92%</span></div><div class="sb-bar"><div class="sb-fill fg" style="width:92%"></div></div></div>
+    <div class="subj-bar"><div class="sb-hd"><span class="sb-lbl">📝 Assignments Submitted</span><span class="sb-pct">85%</span></div><div class="sb-bar"><div class="sb-fill fo" style="width:85%"></div></div></div>
+  </div></div>
+</div>
+
+<!-- ════ ATTENDANCE ════ -->
+<div class="page" id="page-attendance">
+  <div class="page-hd"><div><h2>Attendance</h2><p>Track student class attendance</p></div>
+    <button class="btn btn-primary" onclick="openM('modal-take-att')">✅ Take Today's Attendance</button>
+  </div>
+  <div class="grid3" style="margin-bottom:20px;">
+    <div class="kpi"><div class="kpi-top"><div class="kpi-ico ci-g">✅</div><span class="kpi-trend kpi-up">92%</span></div><div class="kpi-val">92%</div><div class="kpi-lbl">Avg Attendance Rate</div></div>
+    <div class="kpi"><div class="kpi-top"><div class="kpi-ico ci-r">❌</div><span class="kpi-trend kpi-dn">3 students</span></div><div class="kpi-val">8</div><div class="kpi-lbl">Total Absences (Month)</div></div>
+    <div class="kpi"><div class="kpi-top"><div class="kpi-ico ci-o">⚠️</div><span class="kpi-trend kpi-dn">Act now</span></div><div class="kpi-val">1</div><div class="kpi-lbl">3+ Consecutive Absent</div></div>
+  </div>
+  <div class="card"><div class="card-hd"><div class="c-ico ci-b">📅</div><div><div class="c-title">Attendance Record</div><div class="c-sub">April 2025</div></div></div>
+  <div class="card-bd" style="padding:0;"><div class="tbl-wrap"><table>
+    <thead><tr><th>Student</th><th>Apr 7</th><th>Apr 8</th><th>Apr 9</th><th>Apr 10</th><th>Apr 14</th><th>Attendance %</th><th>Status</th></tr></thead>
+    <tbody id="att-tbody"></tbody>
+  </table></div></div></div>
+</div>
+
+<!-- ════ ASSIGNMENTS ════ -->
+<div class="page" id="page-assignments">
+  <div class="page-hd"><div><h2>Assignments</h2><p>Manage and grade student work</p></div>
+    <button class="btn btn-primary" onclick="openM('modal-add-assignment')">➕ New Assignment</button>
+  </div>
+  <div id="asgn-list"></div>
+</div>
+
+<!-- ════ GRADE BOOK ════ -->
+<div class="page" id="page-gradebook">
+  <div class="page-hd"><div><h2>Grade Book</h2><p>All student scores and evaluations</p></div>
+    <button class="btn btn-primary" onclick="openM('modal-add-grade')">➕ Add Grade</button>
+  </div>
+  <div class="card"><div class="card-hd"><div class="c-ico ci-o">⭐</div><div><div class="c-title">Term 2 Grades</div><div class="c-sub">April–July 2025</div></div></div>
+  <div class="card-bd" style="padding:0;"><div class="tbl-wrap"><table>
+    <thead><tr><th>Student</th><th>Hifz Quiz 1</th><th>Tajweed Test</th><th>Arabic Test</th><th>Mid-Term</th><th>Avg Grade</th><th>Remarks</th></tr></thead>
+    <tbody id="grade-tbody"></tbody>
+  </table></div></div></div>
+</div>
+
+<!-- ════ LESSON NOTES ════ -->
+<div class="page" id="page-notes">
+  <div class="page-hd"><div><h2>Lesson Notes</h2><p>Class notes and teaching logs</p></div>
+    <button class="btn btn-primary" onclick="openM('modal-add-note')">➕ New Note</button>
+  </div>
+  <div class="grid2" id="notes-grid"></div>
+</div>
+
+<!-- ════ RESOURCES ════ -->
+<div class="page" id="page-resources">
+  <div class="page-hd"><div><h2>Resources</h2><p>Teaching materials and files</p></div>
+    <button class="btn btn-primary">⬆ Upload Resource</button>
+  </div>
+  <div class="grid3" id="resources-grid"></div>
+</div>
+
+<!-- ════ MESSAGES ════ -->
+<div class="page" id="page-messages">
+  <div class="page-hd"><div><h2>Messages</h2><p>7 unread</p></div>
+    <button class="btn btn-primary">✉️ New Message</button>
+  </div>
+  <div class="grid2">
+    <div id="messages-list"></div>
+    <div class="card"><div class="card-hd"><div class="c-ico ci-b">💬</div><div><div class="c-title">Quick Reply</div></div></div>
+    <div class="card-bd">
+      <div class="form-row"><label>To</label><select><option>Ahmad Bilal</option><option>Fatima Hassan</option><option>All My Students</option><option>Admin</option></select></div>
+      <div class="form-row"><label>Message</label><textarea placeholder="Type your message…" style="min-height:120px;"></textarea></div>
+      <div style="display:flex;gap:8px;justify-content:flex-end;">
+        <button class="btn btn-outline btn-sm">Save Draft</button>
+        <button class="btn btn-primary btn-sm">📤 Send</button>
+      </div>
+    </div></div>
+  </div>
+</div>
+
+<!-- ════ ANNOUNCEMENTS ════ -->
+<div class="page" id="page-announcements">
+  <div class="page-hd"><div><h2>Announcements</h2><p>From admin and school</p></div></div>
+  <div id="ann-list"></div>
+</div>
+
+<!-- ════ PROFILE ════ -->
+<div class="page" id="page-profile">
+  <div style="background:linear-gradient(120deg,var(--em) 0%,#0e8a60 100%);border-radius:16px;padding:28px 24px;text-align:center;margin-bottom:16px;position:relative;overflow:hidden;">
+    <div style="position:relative;display:inline-block;margin-bottom:14px;">
+      <div style="width:84px;height:84px;border-radius:50%;border:3.5px solid var(--gold);background:var(--em-lt);display:flex;align-items:center;justify-content:center;font-size:28px;color:#fff;font-weight:700;margin:0 auto;">AY</div>
+      <div style="position:absolute;bottom:0;right:0;width:26px;height:26px;background:var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;cursor:pointer;border:2px solid white;">📷</div>
+    </div>
+    <h2 style="font-size:20px;font-weight:700;color:#fff;margin-bottom:4px;">Sh. Abdullah Yusuf</h2>
+    <p style="font-size:12.5px;color:rgba(255,255,255,0.72);">Quran Hifz & Tajweed Teacher</p>
+    <div style="display:flex;gap:8px;justify-content:center;margin-top:10px;flex-wrap:wrap;">
+      <span style="background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.2);border-radius:20px;padding:4px 12px;font-size:11px;color:#fff;">📖 Quran Hifz</span>
+      <span style="background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.2);border-radius:20px;padding:4px 12px;font-size:11px;color:#fff;">🎙️ Tajweed</span>
+      <span style="background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.2);border-radius:20px;padding:4px 12px;font-size:11px;color:#fff;">👨‍🎓 14 Students</span>
+    </div>
+  </div>
+  <div style="font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;">Personal Information</div>
+  <div style="background:var(--card);border-radius:13px;border:1.5px solid var(--border);overflow:hidden;box-shadow:var(--sh);">
+    <div class="row-item" style="padding:13px 16px;"><div class="c-ico ci-g" style="flex-shrink:0;">📧</div><div style="flex:1;min-width:0;margin-left:10px;"><div style="font-size:12px;color:var(--muted);">Email</div><div style="font-size:13px;font-weight:600;">a.yusuf@dlight.edu</div></div></div>
+    <div class="row-item" style="padding:13px 16px;"><div class="c-ico ci-b" style="flex-shrink:0;">📞</div><div style="flex:1;min-width:0;margin-left:10px;"><div style="font-size:12px;color:var(--muted);">Phone</div><div style="font-size:13px;font-weight:600;">+44 7700 111 000</div></div></div>
+    <div class="row-item" style="padding:13px 16px;"><div class="c-ico ci-o" style="flex-shrink:0;">🎓</div><div style="flex:1;min-width:0;margin-left:10px;"><div style="font-size:12px;color:var(--muted);">Qualification</div><div style="font-size:13px;font-weight:600;">Hafiz · Ijazah in Hafs ʿan ʿĀsim</div></div></div>
+    <div class="row-item" style="padding:13px 16px;"><div class="c-ico ci-g" style="flex-shrink:0;">🌍</div><div style="flex:1;min-width:0;margin-left:10px;"><div style="font-size:12px;color:var(--muted);">Timezone</div><div style="font-size:13px;font-weight:600;">GMT (London, UK)</div></div></div>
+    <div style="padding:13px 16px;"><div class="c-ico ci-g" style="flex-shrink:0;display:inline-flex;margin-bottom:4px;">📋</div><div style="font-size:12px;color:var(--muted);margin-bottom:4px;">Bio</div><div style="font-size:13px;color:var(--ink2);line-height:1.65;">Experienced Quranic teacher with over 10 years of teaching Hifz and Tajweed online. Dedicated to providing personalised guidance to each student.</div></div>
+  </div>
+  <div style="margin-top:14px;"><button class="btn btn-primary" style="width:100%;">✏️ Edit Profile</button></div>
+</div>
+
+<!-- ════ SETTINGS ════ -->
+<div class="page" id="page-settings">
+  <div class="page-hd"><div><h2>Settings</h2><p>Preferences and account settings</p></div></div>
+  <div class="grid2">
+    <div>
+      <div style="font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;">Notifications</div>
+      <div class="card" style="margin-bottom:16px;"><div class="card-bd">
+        <div class="row-item"><span style="flex:1;font-size:13px;">Student submits assignment</span><div class="tog on" onclick="this.classList.toggle('on')"></div></div>
+        <div class="row-item"><span style="flex:1;font-size:13px;">Student misses class</span><div class="tog on" onclick="this.classList.toggle('on')"></div></div>
+        <div class="row-item"><span style="flex:1;font-size:13px;">New message received</span><div class="tog on" onclick="this.classList.toggle('on')"></div></div>
+        <div class="row-item"><span style="flex:1;font-size:13px;">Class starting in 15 min</span><div class="tog on" onclick="this.classList.toggle('on')"></div></div>
+        <div class="row-item"><span style="flex:1;font-size:13px;">Admin announcements</span><div class="tog" onclick="this.classList.toggle('on')"></div></div>
+      </div></div>
+      <div style="font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;">Appearance</div>
+      <div class="card"><div class="card-bd">
+        <div class="row-item"><span style="flex:1;font-size:13px;">🌙 Dark Mode</span><div class="tog" onclick="this.classList.toggle('on')"></div></div>
+        <div class="row-item"><span style="flex:1;font-size:13px;">🌍 Language</span><span style="font-size:13px;color:var(--muted);">English (UK) ›</span></div>
+      </div></div>
+    </div>
+    <div>
+      <div style="font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;">Security</div>
+      <div class="card"><div class="card-bd">
+        <div class="form-row"><label>Current Password</label><input type="password" placeholder="••••••••"></div>
+        <div class="form-row"><label>New Password</label><input type="password" placeholder="New password"></div>
+        <div class="form-row"><label>Confirm Password</label><input type="password" placeholder="Confirm password"></div>
+        <button class="btn btn-primary btn-sm">Update Password</button>
+      </div></div>
+      <div style="margin-top:14px;">
+        <button class="btn btn-danger btn-sm" style="width:100%;" onclick="doLogout()">🚪 Log Out of All Devices</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+  </div><!-- /va -->
+</div><!-- /shell -->
+
+<!-- BOTTOM NAV -->
+
+<nav class="bottom-nav">
+  <div class="bn-inner">
+    <button class="bn-item active" data-page="dashboard" onclick="go(this)"><span class="bico">🏠</span>Home</button>
+    <button class="bn-item" data-page="myclasses" onclick="go(this)"><span class="bico">🕌</span>Classes</button>
+    <button class="bn-item" data-page="students" onclick="go(this)"><span class="bico">👨‍🎓</span>Students</button>
+    <button class="bn-item" data-page="messages" onclick="go(this)"><span class="bico">💬</span>Messages</button>
+    <button class="bn-item" data-page="profile" onclick="go(this)"><span class="bico">👤</span>Profile</button>
+  </div>
+</nav>
+
+<!-- ═══ MODALS ═══ -->
+
+<div class="modal-bg" id="modal-add-class">
+  <div class="modal"><div class="modal-hd"><div class="c-ico ci-b">🕌</div><h3>Request New Class</h3><button class="modal-close" onclick="closeM('modal-add-class')">✕</button></div>
+  <div class="modal-body">
+    <div class="form-row"><label>Class Name *</label><input type="text" placeholder="e.g. Quran Hifz — Ibtidaiy Group A"></div>
+    <div class="form-grid"><div class="form-row"><label>Subject</label><select><option>Quran Hifz</option><option>Tajweed</option><option>Arabiyyah</option></select></div><div class="form-row"><label>Day</label><select><option>Monday</option><option>Tuesday</option><option>Wednesday</option><option>Thursday</option><option>Friday</option></select></div></div>
+    <div class="form-grid"><div class="form-row"><label>Start Time</label><input type="time" value="08:00"></div><div class="form-row"><label>End Time</label><input type="time" value="09:00"></div></div>
+    <div class="form-row"><label>Meeting Link (Zoom / Google Meet)</label><input type="text" placeholder="https://zoom.us/j/…"></div>
+    <div class="form-row"><label>Notes</label><textarea placeholder="Any notes for admin…"></textarea></div>
+  </div>
+  <div class="modal-foot"><button class="btn btn-outline" onclick="closeM('modal-add-class')">Cancel</button><button class="btn btn-primary" onclick="closeM('modal-add-class');alert('Request sent to admin!')">📤 Submit Request</button></div></div>
+</div>
+
+<div class="modal-bg" id="modal-add-assignment">
+  <div class="modal"><div class="modal-hd"><div class="c-ico ci-o">📋</div><h3>New Assignment</h3><button class="modal-close" onclick="closeM('modal-add-assignment')">✕</button></div>
+  <div class="modal-body">
+    <div class="form-row"><label>Title *</label><input type="text" placeholder="Assignment title"></div>
+    <div class="form-grid"><div class="form-row"><label>Subject</label><select><option>Quran Hifz</option><option>Tajweed</option></select></div><div class="form-row"><label>Due Date</label><input type="date"></div></div>
+    <div class="form-row"><label>Assign To</label><select><option>All My Students</option><option>Ahmad Bilal</option><option>Fatima Hassan</option><option>Ibrahim Yusuf</option></select></div>
+    <div class="form-row"><label>Description</label><textarea placeholder="Describe the task…"></textarea></div>
+    <div class="form-row"><label>Max Score</label><input type="number" placeholder="100" value="100"></div>
+  </div>
+  <div class="modal-foot"><button class="btn btn-outline" onclick="closeM('modal-add-assignment')">Cancel</button><button class="btn btn-primary" onclick="closeM('modal-add-assignment');alert('Assignment created!')">✓ Create</button></div></div>
+</div>
+
+<div class="modal-bg" id="modal-add-note">
+  <div class="modal"><div class="modal-hd"><div class="c-ico ci-g">📝</div><h3>New Lesson Note</h3><button class="modal-close" onclick="closeM('modal-add-note')">✕</button></div>
+  <div class="modal-body">
+    <div class="form-row"><label>Title *</label><input type="text" placeholder="Note title (e.g. Al-Kahf Session 5)"></div>
+    <div class="form-grid"><div class="form-row"><label>Subject</label><select><option>Quran Hifz</option><option>Tajweed</option></select></div><div class="form-row"><label>Date</label><input type="date"></div></div>
+    <div class="form-row"><label>Note</label><textarea placeholder="What was covered, student performance, next steps…" style="min-height:120px;"></textarea></div>
+    <div class="form-row"><label>Visibility</label><select><option>Private (only me)</option><option>Share with Admin</option><option>Share with Student</option></select></div>
+  </div>
+  <div class="modal-foot"><button class="btn btn-outline" onclick="closeM('modal-add-note')">Cancel</button><button class="btn btn-primary" onclick="closeM('modal-add-note');alert('Note saved!')">💾 Save Note</button></div></div>
+</div>
+
+<div class="modal-bg" id="modal-add-grade">
+  <div class="modal"><div class="modal-hd"><div class="c-ico ci-o">⭐</div><h3>Add Grade</h3><button class="modal-close" onclick="closeM('modal-add-grade')">✕</button></div>
+  <div class="modal-body">
+    <div class="form-row"><label>Student</label><select><option>Ahmad Bilal</option><option>Fatima Hassan</option><option>Ibrahim Yusuf</option><option>Aisha Rahman</option></select></div>
+    <div class="form-grid"><div class="form-row"><label>Assessment</label><select><option>Hifz Quiz 1</option><option>Tajweed Test</option><option>Arabic Test</option><option>Mid-Term</option></select></div><div class="form-row"><label>Score (/100)</label><input type="number" placeholder="85" min="0" max="100"></div></div>
+    <div class="form-row"><label>Remarks</label><textarea placeholder="Brief comments on performance…"></textarea></div>
+  </div>
+  <div class="modal-foot"><button class="btn btn-outline" onclick="closeM('modal-add-grade')">Cancel</button><button class="btn btn-primary" onclick="closeM('modal-add-grade');alert('Grade saved!')">💾 Save Grade</button></div></div>
+</div>
+
+<div class="modal-bg" id="modal-take-att">
+  <div class="modal" style="max-width:460px;"><div class="modal-hd"><div class="c-ico ci-g">✅</div><h3>Take Attendance</h3><button class="modal-close" onclick="closeM('modal-take-att')">✕</button></div>
+  <div class="modal-body" id="att-modal-body"></div>
+  <div class="modal-foot"><button class="btn btn-outline" onclick="closeM('modal-take-att')">Cancel</button><button class="btn btn-primary" onclick="closeM('modal-take-att');alert('Attendance saved!')">✓ Save Attendance</button></div></div>
+</div>
+
+<div class="modal-bg" id="modal-student-detail">
+  <div class="modal" style="max-width:560px;"><div class="modal-hd"><div class="c-ico ci-g">👤</div><h3 id="sd-modal-title">Student Profile</h3><button class="modal-close" onclick="closeM('modal-student-detail')">✕</button></div>
+  <div class="modal-body" id="sd-modal-body"></div>
+  <div class="modal-foot"><button class="btn btn-outline" onclick="closeM('modal-student-detail')">Close</button><button class="btn btn-primary" onclick="closeM('modal-student-detail');go(null,'messages')">💬 Send Message</button></div></div>
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>

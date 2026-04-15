@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Dlight Online Quran Institute</title>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- ══ SIDEBAR BACKDROP ══ -->
+<div class="sb-backdrop" id="sb-backdrop" onclick="closeSb()"></div>
+
+<!-- ══ SIDEBAR ══ -->
+<aside class="sidebar" id="sidebar">
+  <div class="sb-logo">
+    <div class="logo-gem">ض</div>
+    <div class="logo-txt">
+      <strong>Dlight Institute</strong>
+      <span>Online Quran School</span>
+    </div>
+    <button class="sb-x" onclick="closeSb()">✕</button>
+  </div>
+
+  <div class="nav-label">Main</div>
+  <a class="nav-link active" data-page="dashboard" onclick="navigate(this)"><span class="ni">🏠</span> Dashboard</a>
+  <a class="nav-link" data-page="quran" onclick="navigate(this)"><span class="ni">📖</span> My Quran <span class="nb">Juz 5</span></a>
+  <a class="nav-link" data-page="lessons" onclick="navigate(this)"><span class="ni">🎓</span> Lessons</a>
+  <a class="nav-link" data-page="assignments" onclick="navigate(this)"><span class="ni">📋</span> Assignments <span class="nb">3</span></a>
+
+  <div class="nav-label">Communication</div>
+  <a class="nav-link" data-page="messages" onclick="navigate(this)"><span class="ni">💬</span> Messages <span class="nb">5</span></a>
+  <a class="nav-link" data-page="announcements" onclick="navigate(this)"><span class="ni">📢</span> Announcements</a>
+  <a class="nav-link" data-page="teachers" onclick="navigate(this)"><span class="ni">👩‍🏫</span> My Teachers</a>
+
+  <div class="nav-label">Account</div>
+  <a class="nav-link" data-page="progress" onclick="navigate(this)"><span class="ni">📊</span> Progress Report</a>
+  <a class="nav-link" data-page="profile" onclick="navigate(this)"><span class="ni">👤</span> Profile</a>
+  <a class="nav-link" data-page="settings" onclick="navigate(this)"><span class="ni">⚙️</span> Settings</a>
+
+  <div class="sb-foot">
+    <button class="sb-logout" onclick="doLogout()">🚪 Log Out</button>
+  </div>
+</aside>
+
+<!-- ══ SHELL ══ -->
+<div class="shell">
+
+  <!-- TOPBAR -->
+  <header class="topbar">
+    <button class="tb-ham" onclick="openSb()">☰</button>
+    <div class="tb-brand">
+      <div class="tb-brand-gem">ض</div>
+      <div class="tb-brand-name">Dlight</div>
+    </div>
+    <div class="tb-page-title">
+      <h1 id="page-title">Dashboard</h1>
+      <p id="page-date">Monday, April 14</p>
+    </div>
+    <div class="tb-search">
+      <span style="color:var(--muted);font-size:13px;">🔍</span>
+      <input type="text" placeholder="Search…">
+    </div>
+    <div class="tb-btn">🔔<span class="ndot"></span></div>
+    <div class="tb-btn">📅</div>
+    <div class="profile-pill" onclick="toggleDd()">
+      <div class="p-av">A</div>
+      <span class="p-name">Ahmad Bilal</span>
+      <span style="color:var(--muted);font-size:10px;margin-left:2px;">▾</span>
+    </div>
+  </header>
+
+  <!-- DROPDOWN -->
+  <div class="dd-overlay" id="dd-ov" onclick="toggleDd()"></div>
+  <div class="dd-wrap" id="dd">
+    <div class="dd-box">
+      <div class="dd-head"><strong>Ahmad Bilal</strong><span>ahmad.bilal@dlight.edu</span></div>
+      <div class="dd-item" onclick="navigate(null,'profile')">👤 View Profile</div>
+      <div class="dd-item" onclick="navigate(null,'settings')">⚙️ Settings</div>
+      <div class="dd-item" onclick="navigate(null,'settings')">🔒 Change Password</div>
+      <div class="dd-item red" onclick="doLogout()">🚪 Log Out</div>
+    </div>
+  </div>
+
+  <!-- ═══ VIEW AREA ═══ -->
+  <div class="view-area" id="view-area">
+
+    <!-- ══════════ PAGE: DASHBOARD ══════════ -->
+    <div class="page active" id="page-dashboard">
+      <div class="greeting-card">
+        <div class="g-av">A</div>
+        <div class="g-txt">
+          <h2 id="greet-h">As-Salāmu ʿAlaykum, Ahmad! 👋</h2>
+          <p>Keep up the excellent effort in your Quran journey.</p>
+        </div>
+        <div class="g-stats">
+          <div class="gst"><div class="gst-v">75%</div><div class="gst-l">Completion</div></div>
+          <div class="gst"><div class="gst-v">14</div><div class="gst-l">Juz Done</div></div>
+          <div class="gst"><div class="gst-v">22</div><div class="gst-l">Streak 🔥</div></div>
+        </div>
+      </div>
+
+      <div class="kpi-row">
+        <div class="kpi"><div class="kpi-top"><div class="kpi-ico ci-g">📖</div><div><div class="kpi-val">285</div><div class="kpi-lbl">Verses Memorised</div></div></div><div class="kpi-trend up">▲ 12 this week</div></div>
+        <div class="kpi"><div class="kpi-top"><div class="kpi-ico ci-o">⏱️</div><div><div class="kpi-val">42h</div><div class="kpi-lbl">Study Time</div></div></div><div class="kpi-trend up">▲ 8% this month</div></div>
+        <div class="kpi"><div class="kpi-top"><div class="kpi-ico ci-b">✅</div><div><div class="kpi-val">18/20</div><div class="kpi-lbl">Tasks Done</div></div></div><div class="kpi-trend down">▼ 2 overdue</div></div>
+      </div>
+
+      <h2 class="section-title" style="margin-bottom:12px;">Quick Access</h2>
+      <div class="quick-grid">
+        <div class="q-card" onclick="navigate(null,'quran')"><div class="q-ico">📖</div><div class="q-lbl">My Quran</div><div class="q-sub">Juz 5</div></div>
+        <div class="q-card" onclick="navigate(null,'assignments')"><div class="q-ico">📋</div><div class="q-lbl">Assignments</div><div class="q-sub">3 due</div></div>
+        <div class="q-card" onclick="navigate(null,'messages')"><div class="q-ico">💬</div><div class="q-lbl">Messages</div><div class="q-sub">5 new</div></div>
+        <div class="q-card" onclick="navigate(null,'progress')"><div class="q-ico">📊</div><div class="q-lbl">Progress</div><div class="q-sub">75%</div></div>
+      </div>
+
+      <div class="grid2" style="margin-top:4px;">
+        <!-- Today's Schedule -->
+        <div class="card">
+          <div class="card-hd"><div class="c-icon ci-o">🗓️</div><div><div class="c-title">Today's Schedule</div><div class="c-sub" id="sch-date">Monday</div></div><div class="c-act" onclick="navigate(null,'lessons')">All ›</div></div>
+          <div class="card-bd" style="padding-top:8px;">
+            <div class="row-item"><span style="font-size:11px;color:var(--muted);min-width:42px;flex-shrink:0;">08:00</span><span style="width:8px;height:8px;border-radius:50%;background:var(--em-lt);flex-shrink:0;display:inline-block;"></span><div style="flex:1;min-width:0;margin-left:10px;"><div style="font-size:13px;font-weight:600;color:var(--ink);">Quran Hifz</div><div style="font-size:11px;color:var(--muted);">Sh. Abdullah Yusuf</div></div><span class="badge b-grn">Done</span></div>
+            <div class="row-item"><span style="font-size:11px;color:var(--muted);min-width:42px;flex-shrink:0;">10:00</span><span style="width:8px;height:8px;border-radius:50%;background:var(--sky);flex-shrink:0;display:inline-block;"></span><div style="flex:1;min-width:0;margin-left:10px;"><div style="font-size:13px;font-weight:600;color:var(--ink);">Tajweed Class</div><div style="font-size:11px;color:var(--muted);">Ust. Fatimah Hassan</div></div><span class="badge b-red">Live</span></div>
+            <div class="row-item"><span style="font-size:11px;color:var(--muted);min-width:42px;flex-shrink:0;">14:00</span><span style="width:8px;height:8px;border-radius:50%;background:var(--gold);flex-shrink:0;display:inline-block;"></span><div style="flex:1;min-width:0;margin-left:10px;"><div style="font-size:13px;font-weight:600;color:var(--ink);">Arabic Grammar</div><div style="font-size:11px;color:var(--muted);">Sh. Muhammad Al-Amin</div></div><span class="badge b-gld">2hrs</span></div>
+            <div class="row-item"><span style="font-size:11px;color:var(--muted);min-width:42px;flex-shrink:0;">16:00</span><span style="width:8px;height:8px;border-radius:50%;background:var(--sky);flex-shrink:0;display:inline-block;"></span><div style="flex:1;min-width:0;margin-left:10px;"><div style="font-size:13px;font-weight:600;color:var(--ink);">Hadith Study Circle</div><div style="font-size:11px;color:var(--muted);">Sh. Ibrahim Musa</div></div><span class="badge b-sky">4hrs</span></div>
+          </div>
+        </div>
+        <!-- Recent Messages -->
+        <div class="card">
+          <div class="card-hd"><div class="c-icon ci-b">💬</div><div><div class="c-title">Recent Messages</div><div class="c-sub">5 unread</div></div><div class="c-act" onclick="navigate(null,'messages')">All ›</div></div>
+          <div class="card-bd" style="padding-top:8px;">
+            <div class="row-item" style="cursor:pointer;" onclick="navigate(null,'messages')"><div class="m-av g" style="width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;flex-shrink:0;">AY</div><div style="flex:1;min-width:0;margin-left:10px;"><div style="font-size:13px;font-weight:600;color:var(--ink);">Sh. Abdullah Yusuf</div><div style="font-size:11.5px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">MashaAllah! Your recitation was excellent…</div></div><div style="flex-shrink:0;text-align:right;"><div style="font-size:10px;color:var(--muted);">10:32</div><div style="width:7px;height:7px;border-radius:50%;background:var(--em);margin:4px 0 0 auto;"></div></div></div>
+            <div class="row-item" style="cursor:pointer;" onclick="navigate(null,'messages')"><div class="m-av o" style="width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;flex-shrink:0;">FH</div><div style="flex:1;min-width:0;margin-left:10px;"><div style="font-size:13px;font-weight:600;color:var(--ink);">Ust. Fatimah Hassan</div><div style="font-size:11.5px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">Don't forget to submit Tajweed recording…</div></div><div style="flex-shrink:0;text-align:right;"><div style="font-size:10px;color:var(--muted);">09:15</div><div style="width:7px;height:7px;border-radius:50%;background:var(--em);margin:4px 0 0 auto;"></div></div></div>
+            <div class="row-item" style="cursor:pointer;" onclick="navigate(null,'messages')"><div class="m-av b" style="width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;flex-shrink:0;">MA</div><div style="flex:1;min-width:0;margin-left:10px;"><div style="font-size:13px;font-weight:600;color:var(--ink);">Sh. Muhammad Al-Amin</div><div style="font-size:11.5px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">Chapter 4 worksheet is now available…</div></div><div style="flex-shrink:0;text-align:right;"><div style="font-size:10px;color:var(--muted);">Yesterday</div></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════ PAGE: QURAN ══════════ -->
+    <div class="page" id="page-quran">
+      <div class="surah-hero">
+        <div class="sh-top">
+          <div class="sh-num">18</div>
+          <div class="sh-meta">
+            <h2>Al-Kahf <span>الكهف</span></h2>
+            <p>Makki · 110 Verses · Juz 15–16 · Currently at Verse 42</p>
+          </div>
+        </div>
+        <div class="sh-prog-bar"><div class="sh-prog-fill"></div></div>
+        <div class="sh-prog-txt"><span>38% complete</span><strong>42 / 110 verses</strong></div>
+      </div>
+
+      <div class="verse-card">
+        <div class="verse-arabic-big"><span class="verse-num-badge">42</span>وَأُحِيطَ بِثَمَرِهِ فَأَصْبَحَ يُقَلِّبُ كَفَّيْهِ عَلَىٰ مَا أَنفَقَ فِيهَا وَهِيَ خَاوِيَةٌ عَلَىٰ عُرُوشِهَا</div>
+        <div class="verse-trans-area"><p>"And his fruits were encompassed by ruin, so he began to turn his hands about in dismay over what he had spent on it, while it had collapsed upon its trellises…" — (Al-Kahf 18:42)</p></div>
+        <div class="verse-controls">
+          <button class="vbtn">⬅ Prev</button>
+          <button class="vbtn primary">▶ Continue Lesson</button>
+          <button class="vbtn">Next ➡</button>
+        </div>
+      </div>
+
+      <h2 class="section-title">Juz Progress <span class="section-sub">30 Juz total</span></h2>
+      <div class="card" style="margin-bottom:16px;">
+        <div class="card-bd">
+          <div class="juz-grid" id="juz-grid"></div>
+        </div>
+      </div>
+
+      <h2 class="section-title">Next Assignment</h2>
+      <div class="card">
+        <div class="card-bd">
+          <div class="row-item"><div class="c-icon ci-g" style="flex-shrink:0;">📖</div><div style="flex:1;min-width:0;margin-left:10px;"><div style="font-size:13.5px;font-weight:600;color:var(--ink);">Memorise Al-Kahf Verses 43–55</div><div style="font-size:12px;color:var(--muted);margin-top:2px;">Due Tomorrow · Sh. Abdullah Yusuf</div></div><span class="badge b-red">Tomorrow</span></div>
+          <div class="row-item"><div class="c-icon ci-b" style="flex-shrink:0;">🎙️</div><div style="flex:1;min-width:0;margin-left:10px;"><div style="font-size:13.5px;font-weight:600;color:var(--ink);">Tajweed — Madd Rules Revision</div><div style="font-size:12px;color:var(--muted);margin-top:2px;">Due in 3 Days · Ust. Fatimah Hassan</div></div><span class="badge b-gld">3 Days</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════ PAGE: LESSONS ══════════ -->
+    <div class="page" id="page-lessons">
+      <h2 class="section-title">Today's Lessons</h2>
+      <div class="lesson-item"><div class="lesson-ico" style="background:rgba(13,110,79,0.1);">📖</div><div class="lesson-info"><h4>Quran Hifz — Al-Kahf</h4><p>Sh. Abdullah Yusuf · Memorisation session</p></div><div class="lesson-right"><div class="dur">45 min</div><span class="badge b-grn">Done</span></div></div>
+      <div class="lesson-item"><div class="lesson-ico" style="background:rgba(26,110,168,0.1);">🎙️</div><div class="lesson-info"><h4>Tajweed — Madd Rules</h4><p>Ust. Fatimah Hassan · Recitation rules</p></div><div class="lesson-right"><div class="dur">30 min</div><span class="badge b-red">Live Now</span></div></div>
+      <div class="lesson-item"><div class="lesson-ico" style="background:rgba(201,168,76,0.1);">✍️</div><div class="lesson-info"><h4>Arabic Grammar — Chapter 4</h4><p>Sh. Muhammad Al-Amin · Nahw & Sarf</p></div><div class="lesson-right"><div class="dur">45 min</div><span class="badge b-gld">2:00 PM</span></div></div>
+      <div class="lesson-item"><div class="lesson-ico" style="background:rgba(107,66,38,0.1);">📚</div><div class="lesson-info"><h4>Hadith Study Circle</h4><p>Sh. Ibrahim Musa · 40 Hadith review</p></div><div class="lesson-right"><div class="dur">60 min</div><span class="badge b-sky">4:00 PM</span></div></div>
+
+      <h2 class="section-title" style="margin-top:20px;">All Subjects</h2>
+      <div class="lesson-item"><div class="lesson-ico" style="background:rgba(13,110,79,0.1);">📖</div><div class="lesson-info"><h4>Quran Memorisation (Hifz)</h4><p>14 of 30 Juz completed · Juz 15 in progress</p></div><div class="lesson-right"><div class="dur"></div><span class="badge b-grn">80%</span></div></div>
+      <div class="lesson-item"><div class="lesson-ico" style="background:rgba(26,110,168,0.1);">🎙️</div><div class="lesson-info"><h4>Tajweed</h4><p>Madd rules · Noon & Meem Sakinah</p></div><div class="lesson-right"><div class="dur"></div><span class="badge b-sky">70%</span></div></div>
+      <div class="lesson-item"><div class="lesson-ico" style="background:rgba(201,168,76,0.1);">✍️</div><div class="lesson-info"><h4>Arabiyyah (Grammar)</h4><p>Chapter 4 — verb patterns</p></div><div class="lesson-right"><div class="dur"></div><span class="badge b-gld">60%</span></div></div>
+      <div class="lesson-item"><div class="lesson-ico" style="background:rgba(201,64,64,0.08);">📕</div><div class="lesson-info"><h4>Tawheed &amp; Fiqh</h4><p>Tawhid Ruboobi · Salah rulings</p></div><div class="lesson-right"><div class="dur"></div><span class="badge b-grn">88%</span></div></div>
+      <div class="lesson-item"><div class="lesson-ico" style="background:rgba(107,66,38,0.1);">📚</div><div class="lesson-info"><h4>Hadith Studies</h4><p>40 Hadith of Imam Nawawi</p></div><div class="lesson-right"><div class="dur"></div><span class="badge b-sky">73%</span></div></div>
+      <div class="lesson-item"><div class="lesson-ico" style="background:rgba(13,110,79,0.1);">🖊️</div><div class="lesson-info"><h4>Khatt (Arabic Calligraphy)</h4><p>Naskh style — letter forms</p></div><div class="lesson-right"><div class="dur"></div><span class="badge b-gld">55%</span></div></div>
+    </div>
+
+    <!-- ══════════ PAGE: ASSIGNMENTS ══════════ -->
+    <div class="page" id="page-assignments">
+      <h2 class="section-title">Assignments <span class="section-sub">3 pending</span></h2>
+
+      <div class="asgn-card">
+        <div class="asgn-top"><div class="asgn-ico" style="background:rgba(201,64,64,0.08);">📕</div><div class="asgn-info"><h4>Aqeedah Quiz — Tawhid Ruboobi</h4><p>Tawheed · Due: Overdue!</p></div><div class="asgn-due-wrap"><span class="badge b-red">Overdue!</span></div></div>
+        <div class="asgn-bar"><div class="asgn-bar-fill fg" style="width:0%"></div></div>
+        <div class="asgn-foot"><div class="asgn-teacher">👤 Sh. Ibrahim Musa</div><button class="asgn-btn">Start Now</button></div>
+      </div>
+
+      <div class="asgn-card">
+        <div class="asgn-top"><div class="asgn-ico" style="background:rgba(13,110,79,0.08);">📖</div><div class="asgn-info"><h4>Memorise Al-Kahf Verses 43–55</h4><p>Quran Hifz · Due: Tomorrow</p></div><div class="asgn-due-wrap"><span class="badge b-red">Tomorrow</span></div></div>
+        <div class="asgn-bar"><div class="asgn-bar-fill fg" style="width:35%"></div></div>
+        <div class="asgn-foot"><div class="asgn-teacher">👤 Sh. Abdullah Yusuf · 35% done</div><button class="asgn-btn">Continue</button></div>
+      </div>
+
+      <div class="asgn-card">
+        <div class="asgn-top"><div class="asgn-ico" style="background:rgba(26,110,168,0.08);">🎙️</div><div class="asgn-info"><h4>Tajweed Revision — Madd Rules</h4><p>Tajweed · Due: In 3 Days</p></div><div class="asgn-due-wrap"><span class="badge b-gld">3 Days</span></div></div>
+        <div class="asgn-bar"><div class="asgn-bar-fill fb" style="width:60%"></div></div>
+        <div class="asgn-foot"><div class="asgn-teacher">👤 Ust. Fatimah Hassan · 60% done</div><button class="asgn-btn">Continue</button></div>
+      </div>
+
+      <div class="asgn-card">
+        <div class="asgn-top"><div class="asgn-ico" style="background:rgba(201,168,76,0.1);">✍️</div><div class="asgn-info"><h4>Arabic Grammar Worksheet — Ch. 4</h4><p>Arabiyyah · Due: In 5 Days</p></div><div class="asgn-due-wrap"><span class="badge b-grn">5 Days</span></div></div>
+        <div class="asgn-bar"><div class="asgn-bar-fill fo" style="width:0%"></div></div>
+        <div class="asgn-foot"><div class="asgn-teacher">👤 Sh. Muhammad Al-Amin</div><button class="asgn-btn">Start</button></div>
+      </div>
+
+      <h2 class="section-title" style="margin-top:20px;">Completed</h2>
+      <div class="asgn-card" style="opacity:.65;">
+        <div class="asgn-top"><div class="asgn-ico" style="background:rgba(13,110,79,0.08);">📖</div><div class="asgn-info"><h4>Memorise Al-Mulk (complete)</h4><p>Quran Hifz · Submitted</p></div><div class="asgn-due-wrap"><span class="badge b-grn">✓ Done</span></div></div>
+        <div class="asgn-bar"><div class="asgn-bar-fill fg" style="width:100%"></div></div>
+        <div class="asgn-foot"><div class="asgn-teacher">👤 Sh. Abdullah Yusuf</div><button class="asgn-btn" style="background:var(--muted);">Review</button></div>
+      </div>
+    </div>
+
+    <!-- ══════════ PAGE: TASKS ══════════ -->
+    <div class="page" id="page-tasks">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+        <h2 class="section-title" style="margin-bottom:0;">Tasks</h2>
+        <button onclick="void(0)" style="padding:8px 16px;border-radius:9px;background:var(--em);color:#fff;border:none;font-family:'Outfit',sans-serif;font-size:12.5px;font-weight:600;cursor:pointer;">+ New Task</button>
+      </div>
+      <div class="tasks-filter">
+        <button class="tf-btn active" onclick="filterTasks('all',this)">All</button>
+        <button class="tf-btn" onclick="filterTasks('pending',this)">Pending</button>
+        <button class="tf-btn" onclick="filterTasks('done',this)">Completed</button>
+        <button class="tf-btn" onclick="filterTasks('high',this)">High Priority</button>
+      </div>
+      <div id="tasks-list">
+        <div class="task-row" data-status="pending" data-pri="high"><div class="task-chk" onclick="toggleTask(this)"></div><div class="task-body"><div class="task-name">Aqeedah Quiz Revision</div><div class="task-meta">Overdue! · Tawheed</div></div><div class="task-right"><span class="pri pri-h">High</span></div></div>
+        <div class="task-row" data-status="pending" data-pri="high"><div class="task-chk" onclick="toggleTask(this)"></div><div class="task-body"><div class="task-name">Memorise Al-Kahf Verses 43–55</div><div class="task-meta">Due Tomorrow · Hifz</div></div><div class="task-right"><span class="pri pri-h">High</span></div></div>
+        <div class="task-row" data-status="pending" data-pri="med"><div class="task-chk" onclick="toggleTask(this)"></div><div class="task-body"><div class="task-name">Arabic Grammar Worksheet — Ch. 4</div><div class="task-meta">Due in 5 Days · Arabiyyah</div></div><div class="task-right"><span class="pri pri-m">Med</span></div></div>
+        <div class="task-row" data-status="pending" data-pri="low"><div class="task-chk" onclick="toggleTask(this)"></div><div class="task-body"><div class="task-name">Read Hadith Notes (Ch. 3)</div><div class="task-meta">Due in 4 Days · Hadith</div></div><div class="task-right"><span class="pri pri-l">Low</span></div></div>
+        <div class="task-row" data-status="pending" data-pri="med"><div class="task-chk" onclick="toggleTask(this)"></div><div class="task-body"><div class="task-name">Tajweed Madd Rules Practice</div><div class="task-meta">Due in 3 Days · Tajweed</div></div><div class="task-right"><span class="pri pri-m">Med</span></div></div>
+        <div class="task-row done-row" data-status="done" data-pri="low"><div class="task-chk done" onclick="toggleTask(this)">✓</div><div class="task-body"><div class="task-name done-text">Review Al-Mulk (full)</div><div class="task-meta">Completed · Hifz</div></div><div class="task-right"><span class="pri pri-l">Low</span></div></div>
+        <div class="task-row done-row" data-status="done" data-pri="med"><div class="task-chk done" onclick="toggleTask(this)">✓</div><div class="task-body"><div class="task-name done-text">Submit Tajweed Recording</div><div class="task-meta">Completed · Tajweed</div></div><div class="task-right"><span class="pri pri-m">Med</span></div></div>
+      </div>
+      <div class="add-task-bar" onclick="void(0)"><span style="font-size:18px;color:var(--em);">＋</span><span>Add a new task…</span></div>
+    </div>
+
+    <!-- ══════════ PAGE: MESSAGES ══════════ -->
+    <div class="page" id="page-messages">
+      <h2 class="section-title">Messages <span class="section-sub">5 unread</span></h2>
+      <div class="msg-row unread"><div class="m-av g">AY</div><div class="m-body"><div class="m-sender">Sh. Abdullah Yusuf</div><div class="m-snippet">MashaAllah! Your recitation of verse 40 was excellent. Please continue practising…</div></div><div class="m-right"><div class="m-time">10:32</div><div class="m-dot"></div></div></div>
+      <div class="msg-row unread"><div class="m-av o">FH</div><div class="m-body"><div class="m-sender">Ust. Fatimah Hassan</div><div class="m-snippet">Don't forget to submit the Tajweed recording before class today.</div></div><div class="m-right"><div class="m-time">09:15</div><div class="m-dot"></div></div></div>
+      <div class="msg-row unread"><div class="m-av b">MA</div><div class="m-body"><div class="m-sender">Sh. Muhammad Al-Amin</div><div class="m-snippet">Chapter 4 worksheet is now available. Complete it by Thursday insha'Allah.</div></div><div class="m-right"><div class="m-time">Yesterday</div><div class="m-dot"></div></div></div>
+      <div class="msg-row"><div class="m-av p">IM</div><div class="m-body"><div class="m-sender">Sh. Ibrahim Musa</div><div class="m-snippet">The Hadith quiz results have been posted. Please check your score and come prepared.</div></div><div class="m-right"><div class="m-time">2 days ago</div></div></div>
+      <div class="msg-row"><div class="m-av g" style="background:#555;">AD</div><div class="m-body"><div class="m-sender">Admin Office</div><div class="m-snippet">Your end-of-term schedule has been confirmed. Please log in to view details.</div></div><div class="m-right"><div class="m-time">3 days ago</div></div></div>
+      <div class="compose-btn-wrap"><button class="compose-btn">✉️ Compose Message</button></div>
+    </div>
+
+    <!-- ══════════ PAGE: ANNOUNCEMENTS ══════════ -->
+    <div class="page" id="page-announcements">
+      <h2 class="section-title">Announcements <span class="section-sub">3 new</span></h2>
+
+      <div class="ann-card"><div class="ann-top"><div class="ann-dot" style="background:var(--red);"></div><div class="ann-body"><h4>End-of-Term Assessments</h4><p>Hifz and Tajweed evaluations will be held on May 10–12. Ensure you have fully revised your assigned surahs and tajweed rules before the evaluation date.</p></div></div><div class="ann-foot"><span class="ann-time">⏰ 2 hours ago · Admin</span><span class="badge b-red">Urgent</span></div></div>
+
+      <div class="ann-card"><div class="ann-top"><div class="ann-dot" style="background:var(--gold);"></div><div class="ann-body"><h4>New Arabiyyah Resources Uploaded</h4><p>Extra practice worksheets for Arabic Grammar Chapter 4 have been uploaded to the student library section. Sh. Muhammad Al-Amin recommends completing them before Thursday's class.</p></div></div><div class="ann-foot"><span class="ann-time">⏰ Yesterday · Sh. Muhammad Al-Amin</span><span class="badge b-gld">Academic</span></div></div>
+
+      <div class="ann-card"><div class="ann-top"><div class="ann-dot" style="background:var(--em-lt);"></div><div class="ann-body"><h4>Eid al-Fitr Holiday Notice</h4><p>Classes will be suspended from Ramadan 29 through Shawwal 3. The regular class schedule will resume on Shawwal 4. Eid Mubarak to all students and families!</p></div></div><div class="ann-foot"><span class="ann-time">⏰ 3 days ago · Admin</span><span class="badge b-grn">Holiday</span></div></div>
+
+      <div class="ann-card"><div class="ann-top"><div class="ann-dot" style="background:var(--sky);"></div><div class="ann-body"><h4>Monthly Progress Reports — April</h4><p>April 2025 progress reports are now ready for download. Visit the Progress Report section to view your detailed performance breakdown across all subjects.</p></div></div><div class="ann-foot"><span class="ann-time">⏰ 4 days ago · Admin</span><span class="badge b-sky">Report</span></div></div>
+
+      <div class="ann-card"><div class="ann-top"><div class="ann-dot" style="background:var(--em-lt);"></div><div class="ann-body"><h4>New Teacher: Ust. Khadijah Rahman</h4><p>We are pleased to welcome Ust. Khadijah Rahman who will be joining the team to teach Seerah and Tafseer starting next term. A timetable update will follow shortly.</p></div></div><div class="ann-foot"><span class="ann-time">⏰ 1 week ago · Admin</span><span class="badge b-grn">Welcome</span></div></div>
+    </div>
+
+    <!-- ══════════ PAGE: TEACHERS ══════════ -->
+    <div class="page" id="page-teachers">
+      <h2 class="section-title">My Teachers <span class="section-sub">4 assigned</span></h2>
+      <div class="grid2" style="margin-bottom:0;">
+        <div class="teacher-card"><div class="tc-top"><div class="tc-av" style="background:var(--em);">AY</div><div class="tc-info"><h3>Sh. Abdullah Yusuf</h3><p>Hafiz · Ijazah in Hafs 'an 'Asim</p><div class="tc-status"><div class="status-dot s-on"></div><span style="color:#2fc75e;font-weight:600;">Online</span></div></div></div><div class="tc-subjects"><span class="subj-chip">Quran Hifz</span><span class="subj-chip">Tajweed</span></div><div class="tc-actions"><button class="tc-btn primary">💬 Message</button><button class="tc-btn">📅 Schedule</button></div></div>
+        <div class="teacher-card"><div class="tc-top"><div class="tc-av" style="background:#9a6d10;">FH</div><div class="tc-info"><h3>Ust. Fatimah Hassan</h3><p>Specialist in Qira'at Sciences</p><div class="tc-status"><div class="status-dot s-on"></div><span style="color:#2fc75e;font-weight:600;">Online · In Class</span></div></div></div><div class="tc-subjects"><span class="subj-chip">Tajweed</span><span class="subj-chip">Quran</span></div><div class="tc-actions"><button class="tc-btn primary">💬 Message</button><button class="tc-btn">📅 Schedule</button></div></div>
+        <div class="teacher-card"><div class="tc-top"><div class="tc-av" style="background:var(--sky);">MA</div><div class="tc-info"><h3>Sh. Muhammad Al-Amin</h3><p>BA Arabic, Islamic University Madinah</p><div class="tc-status"><div class="status-dot s-busy"></div><span style="color:#9a6d10;font-weight:600;">Busy</span></div></div></div><div class="tc-subjects"><span class="subj-chip">Arabiyyah</span><span class="subj-chip">Khatt</span><span class="subj-chip">Nahw</span></div><div class="tc-actions"><button class="tc-btn primary">💬 Message</button><button class="tc-btn">📅 Schedule</button></div></div>
+        <div class="teacher-card"><div class="tc-top"><div class="tc-av" style="background:#6b4226;">IM</div><div class="tc-info"><h3>Sh. Ibrahim Musa</h3><p>MA Islamic Studies · Fiqh specialist</p><div class="tc-status"><div class="status-dot s-off"></div><span style="color:var(--muted);font-weight:600;">Offline</span></div></div></div><div class="tc-subjects"><span class="subj-chip">Tawheed</span><span class="subj-chip">Fiqh</span><span class="subj-chip">Hadith</span></div><div class="tc-actions"><button class="tc-btn primary">💬 Message</button><button class="tc-btn">📅 Schedule</button></div></div>
+      </div>
+    </div>
+
+    <!-- ══════════ PAGE: PROGRESS ══════════ -->
+    <div class="page" id="page-progress">
+      <h2 class="section-title">Progress Report <span class="section-sub">Term 2 · Apr–Jul 2025</span></h2>
+      <div class="prog-hero">
+        <div class="ring-wrap">
+          <svg width="96" height="96" viewBox="0 0 100 100"><circle class="r-track" cx="50" cy="50" r="45"/><circle class="r-fill" cx="50" cy="50" r="45"/></svg>
+          <div class="ring-center"><div class="ring-pct">75%</div><div class="ring-lbl">Overall</div></div>
+        </div>
+        <div class="prog-info">
+          <h3>Academic Term 2</h3>
+          <p>On Track ✓ · April – July 2025</p>
+          <div class="prog-chips">
+            <span class="chip">📖 <strong>285</strong> verses</span>
+            <span class="chip">🔥 <strong>22</strong> day streak</span>
+            <span class="chip">⏱️ <strong>42h</strong> this month</span>
+          </div>
+        </div>
+      </div>
+      <div class="subj-prog-item"><div class="spi-top"><div class="spi-name">📖 Quran Hifz</div><div class="spi-pct">80%</div></div><div class="spi-bar"><div class="spi-fill fg" style="width:80%"></div></div><div class="spi-stats"><span class="spi-stat">Juz done: <strong>14 / 30</strong></span><span class="spi-stat">Current: <strong>Al-Kahf</strong></span></div></div>
+      <div class="subj-prog-item"><div class="spi-top"><div class="spi-name">🎙️ Tajweed</div><div class="spi-pct">70%</div></div><div class="spi-bar"><div class="spi-fill fb" style="width:70%"></div></div><div class="spi-stats"><span class="spi-stat">Lessons: <strong>14 / 20</strong></span><span class="spi-stat">Next: <strong>Madd Lazim</strong></span></div></div>
+      <div class="subj-prog-item"><div class="spi-top"><div class="spi-name">✍️ Arabiyyah</div><div class="spi-pct">60%</div></div><div class="spi-bar"><div class="spi-fill fo" style="width:60%"></div></div><div class="spi-stats"><span class="spi-stat">Chapters: <strong>3 / 5</strong></span><span class="spi-stat">Next: <strong>Chapter 4</strong></span></div></div>
+      <div class="subj-prog-item"><div class="spi-top"><div class="spi-name">📕 Tawheed &amp; Fiqh</div><div class="spi-pct">88%</div></div><div class="spi-bar"><div class="spi-fill fg" style="width:88%"></div></div><div class="spi-stats"><span class="spi-stat">Units: <strong>7 / 8</strong></span><span class="spi-stat">Next: <strong>Quiz review</strong></span></div></div>
+      <div class="subj-prog-item"><div class="spi-top"><div class="spi-name">📚 Hadith</div><div class="spi-pct">73%</div></div><div class="spi-bar"><div class="spi-fill fb" style="width:73%"></div></div><div class="spi-stats"><span class="spi-stat">Hadith: <strong>29 / 40</strong></span><span class="spi-stat">Book: <strong>40 Nawawi</strong></span></div></div>
+      <div class="subj-prog-item"><div class="spi-top"><div class="spi-name">🖊️ Khatt</div><div class="spi-pct">55%</div></div><div class="spi-bar"><div class="spi-fill fo" style="width:55%"></div></div><div class="spi-stats"><span class="spi-stat">Letters: <strong>16 / 29</strong></span><span class="spi-stat">Style: <strong>Naskh</strong></span></div></div>
+    </div>
+
+    <!-- ══════════ PAGE: PROFILE ══════════ -->
+    <div class="page" id="page-profile">
+      <div class="profile-hero">
+        <div class="prof-av-wrap">
+          <div class="prof-av">A</div>
+          <div class="prof-cam">📷</div>
+        </div>
+        <h2>Ahmad Bilal</h2>
+        <p>ahmad.bilal@dlight.edu</p>
+        <div class="prof-badge">🎓 Active Student · Term 2</div>
+      </div>
+
+      <div class="prof-section-title">Personal Info</div>
+      <div class="prof-row"><div class="prof-row-icon ci-g">👤</div><div class="prof-row-body"><h4>Full Name</h4><p>Ahmad Bilal Muhammad</p></div><span class="prof-row-arrow">›</span></div>
+      <div class="prof-row"><div class="prof-row-icon ci-b">📧</div><div class="prof-row-body"><h4>Email</h4><p>ahmad.bilal@dlight.edu</p></div><span class="prof-row-arrow">›</span></div>
+      <div class="prof-row"><div class="prof-row-icon ci-o">📞</div><div class="prof-row-body"><h4>Phone</h4><p>+44 7700 000000</p></div><span class="prof-row-arrow">›</span></div>
+      <div class="prof-row"><div class="prof-row-icon ci-g">🌍</div><div class="prof-row-body"><h4>Timezone</h4><p>GMT (London, UK)</p></div><span class="prof-row-arrow">›</span></div>
+
+      <div class="prof-section-title">Academic</div>
+      <div class="prof-row"><div class="prof-row-icon ci-g">📖</div><div class="prof-row-body"><h4>Current Juz</h4><p>Juz 15 — Al-Kahf</p></div><span class="prof-row-arrow">›</span></div>
+      <div class="prof-row"><div class="prof-row-icon ci-b">🎓</div><div class="prof-row-body"><h4>Enrolled Since</h4><p>September 2023</p></div></div>
+      <div class="prof-row"><div class="prof-row-icon ci-o">📊</div><div class="prof-row-body"><h4>Overall Progress</h4><p>75% — Term 2</p></div><span class="prof-row-arrow" onclick="navigate(null,'progress')">›</span></div>
+
+      <div class="prof-section-title">Account</div>
+      <div class="prof-row" onclick="navigate(null,'settings')"><div class="prof-row-icon" style="background:rgba(13,110,79,0.1);">⚙️</div><div class="prof-row-body"><h4>Settings</h4><p>Notifications, language, privacy</p></div><span class="prof-row-arrow">›</span></div>
+      <div class="prof-row danger" onclick="doLogout()"><div class="prof-row-icon ci-r">🚪</div><div class="prof-row-body"><h4>Log Out</h4><p>Sign out of your account</p></div></div>
+    </div>
+
+    <!-- ══════════ PAGE: SETTINGS ══════════ -->
+    <div class="page" id="page-settings">
+      <h2 class="section-title">Settings</h2>
+
+      <div class="prof-section-title">Notifications</div>
+      <div class="setting-row"><div class="sr-left"><div class="sr-ico ci-b">🔔</div><div class="sr-body"><h4>Push Notifications</h4><p>Class reminders &amp; announcements</p></div></div><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
+      <div class="setting-row"><div class="sr-left"><div class="sr-ico ci-o">📧</div><div class="sr-body"><h4>Email Alerts</h4><p>Assignment due &amp; grade updates</p></div></div><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
+      <div class="setting-row"><div class="sr-left"><div class="sr-ico ci-g">💬</div><div class="sr-body"><h4>Message Notifications</h4><p>New messages from teachers</p></div></div><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
+
+      <div class="prof-section-title">Appearance</div>
+      <div class="setting-row"><div class="sr-left"><div class="sr-ico" style="background:rgba(13,110,79,0.1);">🌙</div><div class="sr-body"><h4>Dark Mode</h4><p>Switch to dark interface</p></div></div><div class="toggle" onclick="this.classList.toggle('on')"></div></div>
+      <div class="setting-row"><div class="sr-left"><div class="sr-ico ci-b">🌍</div><div class="sr-body"><h4>Language</h4><p>English (UK)</p></div></div><span class="prof-row-arrow">›</span></div>
+
+      <div class="prof-section-title">Privacy &amp; Security</div>
+      <div class="setting-row" style="cursor:pointer;"><div class="sr-left"><div class="sr-ico ci-r">🔒</div><div class="sr-body"><h4>Change Password</h4><p>Update your account password</p></div></div><span class="prof-row-arrow">›</span></div>
+      <div class="setting-row" style="cursor:pointer;"><div class="sr-left"><div class="sr-ico ci-g">🛡️</div><div class="sr-body"><h4>Two-Factor Authentication</h4><p>Extra layer of security</p></div></div><div class="toggle" onclick="this.classList.toggle('on')"></div></div>
+
+      <div style="margin-top:24px;padding-bottom:8px;">
+        <button onclick="doLogout()" style="width:100%;padding:13px;border-radius:12px;background:rgba(201,64,64,0.08);border:1.5px solid rgba(201,64,64,0.2);color:var(--red);font-family:'Outfit',sans-serif;font-size:14px;font-weight:600;cursor:pointer;">🚪 Log Out</button>
+      </div>
+    </div>
+
+  </div><!-- /view-area -->
+</div><!-- /shell -->
+
+<!-- ══ BOTTOM NAV ══ -->
+<nav class="bottom-nav">
+  <div class="bn-inner">
+    <button class="bn-item active" data-page="dashboard" onclick="navigate(this)"><span class="bico">🏠</span>Home</button>
+    <button class="bn-item" data-page="quran" onclick="navigate(this)"><span class="bico">📖</span>Quran</button>
+    <button class="bn-item" data-page="messages" onclick="navigate(this)"><span class="bico">💬</span>Messages<span class="bn-badge">5</span></button>
+    <button class="bn-item" data-page="tasks" onclick="navigate(this)"><span class="bico">✅</span>Tasks</button>
+    <button class="bn-item" data-page="profile" onclick="navigate(this)"><span class="bico">👤</span>Profile</button>
+  </div>
+</nav>
+
+<script src="script.js"></script>
+</body>
+</html>

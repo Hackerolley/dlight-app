@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Dlight Online Quran Institute — Sign In</title>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- ══ REDIRECT OVERLAY ══ -->
+  <div class="redirect-overlay" id="redirect-overlay">
+    <div class="ro-icon" id="ro-icon">🕌</div>
+    <div class="ro-title" id="ro-title">Signing you in…</div>
+    <div class="ro-sub" id="ro-sub">Please wait a moment</div>
+    <div class="ro-bar-wrap"><div class="ro-bar"></div></div>
+  </div>
+
+  <!-- ══ SPLIT LAYOUT ══ -->
+  <div class="split">
+
+    <!-- LEFT PANEL -->
+    <div class="panel-left">
+      <div class="deco-circle dc1"></div>
+      <div class="deco-circle dc2"></div>
+      <div class="deco-circle dc3"></div>
+
+      <div class="pl-logo">
+        <div class="pl-gem">ض</div>
+        <div class="pl-name">
+          <strong>Dlight Institute</strong>
+          <span>Online Quran School</span>
+        </div>
+      </div>
+
+      <div class="pl-content">
+        <div class="pl-arabic">اقْرَأْ بِاسْمِ رَبِّكَ</div>
+        <div class="pl-tagline">
+          Learn the Quran<br>from wherever you are
+        </div>
+        <div class="pl-desc">
+          A complete online learning platform for Quran memorisation,
+          Tajweed, Arabic language, and Islamic studies — guided by
+          qualified teachers, tracked with precision.
+        </div>
+      </div>
+
+      <div class="pl-stats">
+        <div class="pl-stat">
+          <div class="pls-val">48</div>
+          <div class="pls-lbl">Active Students</div>
+        </div>
+        <div class="pl-stat">
+          <div class="pls-val">8</div>
+          <div class="pls-lbl">Teachers</div>
+        </div>
+        <div class="pl-stat">
+          <div class="pls-val">6</div>
+          <div class="pls-lbl">Subjects</div>
+        </div>
+        <div class="pl-stat">
+          <div class="pls-val">30</div>
+          <div class="pls-lbl">Juz Available</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT PANEL -->
+    <div class="panel-right">
+      <div class="login-box">
+
+        <!-- Mobile logo (hidden on desktop) -->
+        <div class="mobile-logo" style="display:none;">
+          <div class="pl-gem" style="width:40px;height:40px;font-size:18px;">ض</div>
+          <div class="pl-name">
+            <strong style="color:var(--ink);">Dlight Institute</strong>
+            <span style="color:var(--muted);">Online Quran School</span>
+          </div>
+        </div>
+
+        <div class="login-header">
+          <h1>Welcome back 👋</h1>
+          <p>Sign in to your Dlight portal</p>
+        </div>
+
+        <!-- ROLE SELECTOR -->
+        <div class="role-selector" role="group" aria-label="Select your role">
+          <button class="role-btn" data-role="admin" onclick="selectRole('admin',this)">
+            <span class="r-ico">⚙️</span>Admin
+          </button>
+          <button class="role-btn" data-role="teacher" onclick="selectRole('teacher',this)">
+            <span class="r-ico">👩‍🏫</span>Teacher
+          </button>
+          <button class="role-btn active" data-role="student" onclick="selectRole('student',this)">
+            <span class="r-ico">👨‍🎓</span>Student
+          </button>
+        </div>
+
+        <!-- ROLE BADGE -->
+        <div style="display:flex;justify-content:center;">
+          <div class="role-badge rb-student" id="role-badge">
+            <span id="role-badge-ico">👨‍🎓</span>
+            <span id="role-badge-txt">Signing in as Student</span>
+          </div>
+        </div>
+
+        <!-- ALERT BOX -->
+        <div class="alert alert-error" id="alert-box">
+          <span>⚠️</span>
+          <span id="alert-msg">Invalid email or password. Please try again.</span>
+        </div>
+
+        <!-- LOGIN FORM -->
+        <form id="login-form" onsubmit="handleLogin(event)" novalidate>
+
+          <!-- Email -->
+          <div class="field">
+            <label for="email">Email Address</label>
+            <div class="field-wrap">
+              <span class="field-ico">📧</span>
+              <input
+                type="email"
+                id="email"
+                placeholder="your@email.com"
+                autocomplete="email"
+                autocapitalize="none"
+                spellcheck="false"
+                oninput="clearError('email')"
+              >
+            </div>
+            <div class="field-error" id="email-error">
+              <span>⚠️</span><span id="email-error-msg">Please enter a valid email address.</span>
+            </div>
+          </div>
+
+          <!-- Password -->
+          <div class="field">
+            <label for="password">Password</label>
+            <div class="field-wrap">
+              <span class="field-ico">🔒</span>
+              <input
+                type="password"
+                id="password"
+                placeholder="Enter your password"
+                autocomplete="current-password"
+                oninput="clearError('password')"
+              >
+              <button type="button" class="eye-btn" id="eye-btn" onclick="toggleEye()" title="Show / hide password">
+                👁️
+              </button>
+            </div>
+            <div class="field-error" id="password-error">
+              <span>⚠️</span><span id="password-error-msg">Password must be at least 6 characters.</span>
+            </div>
+          </div>
+
+          <!-- Remember + Forgot -->
+          <div class="options-row">
+            <label class="remember-wrap">
+              <input type="checkbox" id="remember">
+              <span>Remember me</span>
+            </label>
+            <a href="#" class="forgot-link" onclick="showForgot(event)">Forgot password?</a>
+          </div>
+
+          <!-- Submit -->
+          <button type="submit" class="login-btn" id="login-btn">
+            <span class="btn-spinner" id="btn-spinner"></span>
+            <span class="btn-text" id="btn-text">Sign In →</span>
+          </button>
+
+        </form>
+
+        <div class="divider"><span>or try a demo account</span></div>
+
+        <!-- DEMO CREDENTIALS -->
+        <div class="demo-box">
+          <div class="demo-box-title">Quick Demo — click to fill</div>
+          <div class="demo-row" onclick="fillDemo('admin@dlight.edu','admin123','admin')">
+            <div class="demo-row-left">
+              <div class="demo-av" style="background:var(--gold);color:var(--em);">SA</div>
+              <div class="demo-info">
+                <strong>Super Admin</strong>
+                <span>admin@dlight.edu</span>
+              </div>
+            </div>
+            <button class="demo-fill-btn" tabindex="-1">Use →</button>
+          </div>
+          <div class="demo-row" onclick="fillDemo('a.yusuf@dlight.edu','teacher123','teacher')">
+            <div class="demo-row-left">
+              <div class="demo-av" style="background:var(--sky);">AY</div>
+              <div class="demo-info">
+                <strong>Sh. Abdullah Yusuf</strong>
+                <span>a.yusuf@dlight.edu</span>
+              </div>
+            </div>
+            <button class="demo-fill-btn" tabindex="-1">Use →</button>
+          </div>
+          <div class="demo-row" onclick="fillDemo('ahmad.bilal@dlight.edu','student123','student')">
+            <div class="demo-row-left">
+              <div class="demo-av" style="background:var(--em);">AB</div>
+              <div class="demo-info">
+                <strong>Ahmad Bilal</strong>
+                <span>ahmad.bilal@dlight.edu</span>
+              </div>
+            </div>
+            <button class="demo-fill-btn" tabindex="-1">Use →</button>
+          </div>
+        </div>
+
+        <div class="login-footer">
+          Having trouble? <a href="mailto:support@dlight.edu">Contact support</a><br>
+          © 2025 Dlight Online Quran Institute
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <!-- FORGOT PASSWORD MODAL -->
+  <div style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:800;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(3px);" id="forgot-modal" onclick="if(event.target===this)closeForgot()">
+    <div style="background:var(--card);border-radius:18px;width:100%;max-width:400px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.2);animation:modalIn .22s ease;">
+      <div style="padding:20px 22px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px;">
+        <div style="width:30px;height:30px;border-radius:8px;background:rgba(13,110,79,0.1);display:flex;align-items:center;justify-content:center;font-size:14px;">🔑</div>
+        <h3 style="font-size:16px;font-weight:700;color:var(--ink);flex:1;">Reset Password</h3>
+        <button onclick="closeForgot()" style="width:30px;height:30px;border-radius:8px;border:1.5px solid var(--border);background:var(--cream);cursor:pointer;font-size:14px;color:var(--muted);display:flex;align-items:center;justify-content:center;transition:all .15s;" onmouseover="this.style.background='var(--red)';this.style.color='#fff'" onmouseout="this.style.background='var(--cream)';this.style.color='var(--muted)'">✕</button>
+      </div>
+      <div style="padding:22px;">
+        <p style="font-size:13px;color:var(--muted);margin-bottom:18px;line-height:1.65;">Enter your registered email address and we will send you a link to reset your password.</p>
+        <div style="margin-bottom:16px;">
+          <label style="display:block;font-size:12px;font-weight:600;color:var(--ink2);margin-bottom:7px;">Email Address</label>
+          <div style="position:relative;display:flex;align-items:center;">
+            <span style="position:absolute;left:13px;font-size:15px;color:var(--muted);pointer-events:none;">📧</span>
+            <input type="email" id="forgot-email" placeholder="your@email.com" style="width:100%;padding:12px 14px 12px 40px;border:1.5px solid var(--border);border-radius:10px;font-family:'Outfit',sans-serif;font-size:13.5px;color:var(--ink);background:var(--cream);outline:none;transition:border .2s;" onfocus="this.style.borderColor='var(--em-lt)';this.style.background='#fff'" onblur="this.style.borderColor='var(--border)'">
+          </div>
+        </div>
+        <div style="display:flex;gap:10px;justify-content:flex-end;">
+          <button onclick="closeForgot()" style="padding:9px 18px;border-radius:9px;border:1.5px solid var(--border);background:transparent;font-family:'Outfit',sans-serif;font-size:13px;font-weight:600;color:var(--ink2);cursor:pointer;transition:all .15s;" onmouseover="this.style.borderColor='var(--em)';this.style.color='var(--em)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--ink2)'">Cancel</button>
+          <button onclick="sendReset()" style="padding:9px 20px;border-radius:9px;border:none;background:var(--em);color:#fff;font-family:'Outfit',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:background .2s;" onmouseover="this.style.background='var(--em-mid)'" onmouseout="this.style.background='var(--em)'">📤 Send Reset Link</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+
+</body>
+</html>
