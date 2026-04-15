@@ -355,7 +355,7 @@ function globalSearch(val) {
 /* ═══════════════════════════════
    LOGOUT
 ═══════════════════════════════ */
-function doLogout() { if(confirm('Log out of Admin Portal?')) window.location.href = '../login/index.html'; }
+function doLogout() { if(confirm('Log out of Admin Portal?')) window.location.href = '../index.html'; }
 
 /* ═══════════════════════════════
    SWIPE CLOSE

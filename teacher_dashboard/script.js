@@ -113,7 +113,7 @@ function closeDd() { document.getElementById('dd').classList.remove('open'); doc
 function openM(id) { document.getElementById(id).classList.add('open'); }
 function closeM(id) { document.getElementById(id).classList.remove('open'); }
 document.querySelectorAll('.modal-bg').forEach(m => m.addEventListener('click', e => { if(e.target===m) m.classList.remove('open'); }));
-function doLogout() { if(confirm('Log out of Teacher Portal?')) window.location.href = '../login/index.html'; }
+function doLogout() { if(confirm('Log out of Teacher Portal?')) window.location.href = '../index.html'; }
 
 /* ═══ COUNTDOWN ENGINE ═══ */
 let countdownInterval = null;

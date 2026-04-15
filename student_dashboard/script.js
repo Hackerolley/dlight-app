@@ -64,7 +64,7 @@ function toggleDd() { document.getElementById('dd').classList.toggle('open'); do
 function closeDd()   { document.getElementById('dd').classList.remove('open'); document.getElementById('dd-ov').classList.remove('open'); }
 
 /* ══ LOGOUT ══ */
-function doLogout() { if(confirm('Log out of Dlight Institute?')) window.location.href = '../login/index.html'; }
+function doLogout() { if(confirm('Log out of Dlight Institute?')) window.location.href = '../index.html'; }
 
 /* ══ TASK TOGGLE ══ */
 function toggleTask(el) {
